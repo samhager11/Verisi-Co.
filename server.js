@@ -5,7 +5,7 @@ var express = require('express'),
     mongoose = require('mongoose')
 
 //establishes connection to mongo database(that can be anywhere)
-mongoose.connect('mongodb://localhost/users')
+mongoose.connect('mongodb://samhager11:password@ds027335.mongolab.com:27335/project4')
 
 //send our index.html file to the user for the home page
 app.get('/', function(req, res){
