@@ -11,17 +11,18 @@ adminRouter.use(function(req,res,next){
     next();
 })
 
+//Example of .param() - now logging requests with morgan middleware in server.js
 //more middleware for a particular route to validate :username
-adminRouter.param('username', function(req, res, next, username){
-  //do validation on username here
-
-  //log something so we know its working
-  console.log('doing name validations on ' + username)
-  //once validation is done save the new item in the req
-  req.username = username;
-  //go to the next thing
-  next();
-})
+// adminRouter.param('username', function(req, res, next, username){
+//   //do validation on username here
+//
+//   //log something so we know its working
+//   console.log('doing name validations on ' + username)
+//   //once validation is done save the new item in the req
+//   req.username = username;
+//   //go to the next thing
+//   next();
+// })
 
 //admin main page, the dashboard(http://localhost:1337/admin)
 adminRouter.get('/', function(req,res){
