@@ -9,9 +9,8 @@ var express = require('express'),
     morgan = require('morgan'),
     adminRoutes = require('./routes/admin-router.js'),
     apiRoutes = require('./routes/api-router.js'),
-    port = process.env.PORT || 8080,
-    jwt = require('jsonwebtoken'),
-    superSecret = 'thoughttherockieswouldberockier'
+    port = process.env.PORT || 8080
+
 
 
 //APP CONFIGURATION ----------------------------------------------------------
@@ -19,42 +18,6 @@ var express = require('express'),
 //establishes connection to mongo database(that can be anywhere)
 mongoose.connect('mongodb://samhager11:password@ds027335.mongolab.com:27335/project4')
 
-//route for authenticating users
-//check to make sure user with that username exists
-//check correct password
-//create a token
-apiRoutes.post('/authenticate', function(req,res){
-  //find the user - select the username and password explicitly
-  User.findOne({username:req.body.username})
-    .select('name username password')
-    .exec(function(err, user){
-      if(err) throw console.error();
-      //no user with that username found
-      if(!user){
-        res.json({success: false, message: 'Authentication failed, user not found.'})
-      } else if(user){
-          //check if password matches - comparePassword method created for userSchema in user-model.js
-          var validPassword = user.comparePassword(req.body.password)
-          if(!validPassword){
-              res.json({success: false, message: 'Authentication faild. Wrong password.'})
-          } else {
-              //if user found and password correct create a token
-              var token = jwt.sign({
-                name: user.name,
-                username: user.username},
-                superSecret, {
-                  expiresInMinutes: 1440 //expires in 24 hours
-                })
-                //return the information including the token as JSON
-                res.json({
-                  success: true,
-                  message: 'Enjoy your token boss',
-                  token: token
-                })
-            }
-          }
-      })
-  })
 
 //use body parser to grab information from POST requests
 app.use(bodyParser.urlencoded({ extended: true }))

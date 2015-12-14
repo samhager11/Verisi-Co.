@@ -30,7 +30,7 @@ userSchema.pre('save', function(next){
 //method to compare a given password with the database hash
 userSchema.methods.comparePassword = function(password){
     var user = this
-    console.log(bcrypt.compareSync(password, user.password))
+    // console.log(bcrypt.compareSync(password, user.password))
     return bcrypt.compareSync(password, user.password)
 }
 
