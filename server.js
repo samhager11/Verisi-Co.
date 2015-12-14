@@ -23,6 +23,9 @@ mongoose.connect('mongodb://samhager11:password@ds027335.mongolab.com:27335/proj
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
+//use express to join public to route names for static pages and render ejs views through index.html
+app.use(express.static(path.join(__dirname, 'public')))
+app.set('view engine', 'ejs')
 
 //configure app to handle CORS(cross origin resource sharing) requests
 //allows any domain to access the API
@@ -38,8 +41,9 @@ app.use(function(req, res, next){
 app.use(morgan('dev'))
 
 //send index.html file to the user for the home page
-app.get('/', function(req, res){
-    res.sendfile(__dirname + '/home.html')
+app.get('/', function(req,res){
+	console.log('getting index?')
+	res.render('index')
 })
 
 //REGISTER ROUTES -------------------------------------------------------------
