@@ -17,7 +17,7 @@ function create(req, res){
 
   //set the groups information (comes from the request)
   group.groupName = req.body.groupName
-  group.admin = req.body.admin
+  group.creator = req.body.creator
   group.members.push(req.body.members)
 
 
@@ -59,6 +59,7 @@ function edit(req, res){
 }
 
 //Delete a group
+//Add verification that either admin or group creator can delete
 function destroy(req, res){
   Group.remove({_id: req.params.group_id}, function(err, group){
     if(err) res.send(err);

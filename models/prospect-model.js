@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 
 var prospectSchema = new mongoose.Schema({
     prospectName: {type:String},
-    admin: {type:String},
+    creator: {type:String},
     strategy: {type:String},
     groupName: {type:String},
     zillowId: {type: String, required:true, unique:true },

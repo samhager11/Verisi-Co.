@@ -18,7 +18,7 @@ function create(req, res){
 
   //set the prospects information (comes from the request)
   prospect.prospectName = req.body.prospectName
-  prospect.admin = req.body.admin
+  prospect.creator = req.body.creator
   prospect.strategy = req.body.strategy
   prospect.prospectName = req.body.prospectName
   prospect.zillowId = req.body.zillowId
@@ -69,6 +69,7 @@ function edit(req, res){
 }
 
 //Delete a prospect
+//add verification for delete
 function destroy(req, res){
   Prospect.remove({_id: req.params.prospect_id}, function(err, prospect){
     if(err) res.send(err);
