@@ -45,9 +45,9 @@ app.use(function(req, res, next){
 //log all requests to the console using morgan
 app.use(morgan('dev'))
 
-//send index.html file to the user for the home page
-app.get('/', function(req,res){
-	console.log('getting index?')
+//render index.html file to the user for the home page
+app.get('*', function(req,res){
+	// console.log('getting index?')
 	res.render('index')
 })
 

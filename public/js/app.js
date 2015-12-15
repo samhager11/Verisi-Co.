@@ -1,3 +1,3 @@
 (function(){
-  angular.module('verisiApp',[])
+  angular.module('verisiApp',['ngRoute'])
 }())
