@@ -11,14 +11,14 @@ var express = require('express'),
     morgan = require('morgan'),
     adminRoutes = require('./routes/admin-router.js'),
     apiRoutes = require('./routes/api-router.js'),
-    port = process.env.PORT || 8080
+    config = require('./configuration/config.js')
 
 
 
 //APP CONFIGURATION ----------------------------------------------------------
 
 //establishes connection to mongo database(that can be anywhere)
-mongoose.connect('mongodb://samhager11:password@ds027335.mongolab.com:27335/project4')
+mongoose.connect(config.database)
 
 
 //use body parser to grab information from POST requests
@@ -45,11 +45,7 @@ app.use(function(req, res, next){
 //log all requests to the console using morgan
 app.use(morgan('dev'))
 
-//render index.html file to the user for the home page
-app.get('*', function(req,res){
-	// console.log('getting index?')
-	res.render('index')
-})
+
 
 //REGISTER ROUTES -------------------------------------------------------------
 //apply the Admin routes to application
@@ -57,7 +53,13 @@ app.use('/admin', adminRoutes)
 //apply the API routes to application
 app.use('/api/v1', apiRoutes)
 
+//MAIN CATCHALL ROUTE --------------------------------------------------------
+//Send users to frontend if not on api route (must come after api route use)
+app.get('*', function(req,res){
+  console.log('Node app letting Angular app handle routing for this route')
+	res.sendFile(path.join(__dirname + '/views/index.html'))
+})
 
 //start the server
-app.listen(port);
-console.log('Magic happens on port ' + port);
+app.listen(config.port);
+console.log('Magic happens on port ' + config.port);

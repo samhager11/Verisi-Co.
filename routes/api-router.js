@@ -5,8 +5,8 @@ var express = require('express'),
   groupsController = require('../controllers/groups-controller.js'),
   prospectsController = require('../controllers/prospects-controller.js'),
   jwt = require('jsonwebtoken'),
-  superSecret = 'thoughttherockieswouldberockier'
-
+  config = require('../configuration/config.js'),
+  superSecret = config.secret
 
 
 //JWT AUTHENTICATION -------------------------------------------------------
@@ -81,6 +81,7 @@ apiRoutes.get('/', function(req, res){
 //Check what info is being sent in the request(token)
 apiRoutes.get('/me', function(req, res){
   res.send(req.decoded)
+  console.log("Decoded token api-router.js file: " + req.decoded)
 })
 
 
@@ -114,7 +115,6 @@ apiRoutes.route('/prospects/:prospect_id')
   .get(prospectsController.showProspect)
   .put(prospectsController.editProspect)
   .delete(prospectsController.deleteProspect)
-
 
 
 
