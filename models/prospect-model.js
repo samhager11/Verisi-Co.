@@ -6,6 +6,8 @@ var prospectSchema = new mongoose.Schema({
     creator: {type:String},
     strategy: {type:String},
     groupName: {type:String},
+    address: {type:String},
+    cityStateZip: {},
     zillowId: {type: String, required:true, unique:true },
     zillowData: {},
     zilpyData: {},
