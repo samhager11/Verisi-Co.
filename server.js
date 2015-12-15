@@ -4,6 +4,8 @@
 //CALL THE PACKAGES ----------------------------------------------------------
 var express = require('express'),
     app = express(),
+    ejs = require('ejs'),
+    path = require('path')
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
     morgan = require('morgan'),
@@ -24,8 +26,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 //use express to join public to route names for static pages and render ejs views through index.html
-app.use(express.static(path.join(__dirname, 'public')))
-app.set('view engine', 'ejs')
+// app.set('view engine', 'ejs')
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+app.use(express.static('public'))
+
 
 //configure app to handle CORS(cross origin resource sharing) requests
 //allows any domain to access the API
