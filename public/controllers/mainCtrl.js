@@ -12,12 +12,13 @@
     //check to see if a user is logged in on every request
     $rootScope.$on('$routeChangeStart', function(){
       self.loggedIn = Auth.isLoggedIn()
+      //get user information on page load
+      Auth.getUser()
+        .then(function(data){
+          self.user = data.data
+        })
     })
-    //get user information on page load
-    Auth.getUser()
-      .then(function(data){
-        self.user = data
-      })
+
     //function to handle login form
     self.doLogin = function(){
       //call the Auth.login() function
@@ -25,9 +26,9 @@
         .success(function(data){
           //get user information after logging in
           Auth.getUser()
-            .then(function(data){
-              self.user = data.data
-              console.log(self.user)
+            .success(function(data){
+              self.user = data
+              console.log(self.user.name + " logging from doLogin() function in mainCtrl")
             })
             //if user successfully logs in, redirect to search landing page
             $location.path('/search')

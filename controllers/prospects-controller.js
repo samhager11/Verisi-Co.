@@ -21,6 +21,8 @@ function create(req, res){
   prospect.creator = req.body.creator
   prospect.strategy = req.body.strategy
   prospect.prospectName = req.body.prospectName
+  prospect.address = req.body.address
+  prospect.cityStateZip = req.body.cityStateZip
   prospect.zillowId = req.body.zillowId
   prospect.zillowData = req.body.zillowData
   prospect.zilpyData = req.body.zilpyData

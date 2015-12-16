@@ -18,8 +18,8 @@
         })
         .when('/signup', {
           templateUrl: 'views/partials/signup.html',
-          controller: 'signupController',
-          controllerAs: 'signupCtrl'
+          controller: 'mainController',
+          controllerAs: 'mainCtrl'
         })
         .when('/search', {
           templateUrl: 'views/partials/search.html',
