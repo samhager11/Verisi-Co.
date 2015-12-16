@@ -57,7 +57,7 @@ app.use('/api/v1', apiRoutes)
 //Send users to frontend if not on api route (must come after api route use)
 app.get('*', function(req,res){
   console.log('Node app letting Angular app handle routing for this route')
-	res.sendFile(path.join(__dirname + '/views/index.html'))
+	res.sendFile(path.join(__dirname + '/public/views/index.html'))
 })
 
 //start the server

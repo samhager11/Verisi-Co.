@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="verisiApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Project 4</title>
+    <base href="/">
+
+    <link rel="stylesheet" type="text/css" href="libs/semantic/dist/semantic.min.css">
+
+    <script src="libs/angular.js" charset="utf-8"></script>
+    <script src="libs/angular-route.min.js" charset="utf-8"></script>
+    <script src="libs/jquery.js" charset="utf-8"></script>
+    <script src="libs/semantic/dist/semantic.min.js"></script>
+    <script src="libs/xml2json/xml2json.js"></script>
+    <script src="app-routes.js" charset="utf-8"></script>
+    <script src="services/authService.js" charset="utf-8"></script>
+    <script src="services/otherServices.js" charset="utf-8"></script>
+    <script src="controllers/mainCtrl.js" charset="utf-8"></script>
+    <script src="controllers/otherCtrls.js" charset="utf-8"></script>
+    <script src="app.js" charset="utf-8"></script>
+
+  </head>
+  <body ng-controller="mainController as mainCtrl">
+    <div>
+      <nav class="ui menu" ng-if="mainCtrl.loggedIn">
+        <a href = "/search">
+          <h3 class="header item">Verisi Co.</h3>
+        </a>
+        <a class="item" href="/search">Search</a>
+        <a class="item" href="/collections">Collections</a>
+        <a class="item" href="/comparables">Comparables</a>
+        <a class="item" href="/resources">Resources</a>
+        <a ng-click="mainCtrl.doLogout()" class="item" href="#">Logout</a>
+        <!-- <a class="item" href="#">Hello {{mainCtrl.user.name}} </a> -->
+      </nav>
+
+      <nav class="ui menu" ng-if="!mainCtrl.loggedIn">
+        <a href = "/home">
+          <h3 class="header item">Verisi Co.</h3>
+        </a>
+        <a class="item" href="/login">Login</a>
+        <a class="item" href="/signup">Sign Up</a>
+      </nav>
+
+
+
+    </div>
+    <div class="ui fluid container">
+
+      <div ng-view></div>
+
+    </div>
+  </body>
+</html>

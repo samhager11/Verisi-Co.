@@ -1,5 +1,5 @@
 (function(){
-  angular.module('verisiApp')
+  angular.module('app.routes', ['ngRoute'])
     //configure our routes
     .config(['$routeProvider', '$locationProvider', pageRoutes])
 
@@ -7,47 +7,47 @@
       $routeProvider
         //route for the home page
         .when('/', {
-          templateUrl: 'partials/home.html',
+          templateUrl: 'views/partials/home.html',
           controller: 'homeController',
           controllerAs: 'homeCtrl'
         })
         .when('/login', {
-          templateUrl: 'partials/login.html',
-          controller: 'loginController',
-          controllerAs: 'loginCtrl'
+          templateUrl: 'views/partials/login.html',
+          controller: 'mainController',
+          controllerAs: 'mainCtrl'
         })
         .when('/signup', {
-          templateUrl: 'partials/signup.html',
+          templateUrl: 'views/partials/signup.html',
           controller: 'signupController',
           controllerAs: 'signupCtrl'
         })
         .when('/search', {
-          templateUrl: 'partials/search.html',
+          templateUrl: 'views/partials/search.html',
           controller: 'searchController',
           controllerAs: 'searchCtrl'
         })
         .when('/collections', {
-          templateUrl: 'partials/collections.html',
+          templateUrl: 'views/partials/collections.html',
           controller: 'collectionsController',
           controllerAs: 'collectionsCtrl'
         })
         .when('/comparables', {
-          templateUrl: 'partials/comparables.html',
+          templateUrl: 'views/partials/comparables.html',
           controller: 'comparablesController',
           controllerAs: 'comparablesCtrl'
         })
         .when('/group', {
-          templateUrl: 'partials/group.html',
+          templateUrl: 'views/partials/group.html',
           controller: 'groupController',
           controllerAs: 'groupCtrl'
         })
         .when('/resources', {
-          templateUrl: 'partials/resources.html',
+          templateUrl: 'views/partials/resources.html',
           controller: 'resourcesController',
           controllerAs: 'resourcesCtrl'
         })
         .when('/users/:userId', {
-          templateUrl: 'partials/edit-profile.html',
+          templateUrl: 'views/partials/edit-profile.html',
           controller: 'userController',
           controllerAs: 'userCtrl'
         })

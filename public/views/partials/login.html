@@ -1,0 +1,13 @@
+
+    <form class="ui form segment" ng-submit="mainCtrl.doLogin()">
+      {{loginCtrl.message}}
+      <div class="field">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Username" ng-model="mainCtrl.loginData.username">
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="text" name="password" placeholder="Password" ng-model="mainCtrl.loginData.password">
+      </div>
+      <button class="ui button" type="submit">Submit</button>
+    </form>
