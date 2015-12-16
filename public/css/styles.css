@@ -1,0 +1,18 @@
+/*Style sheet*/
+
+*{
+  /*border: 2px dashed blue;*/
+}
+
+nav.ui.menu{
+  background-color: #190E08;
+  color: white;
+}
+
+.ui.menu .item {
+  color: white;
+}
+
+.ui.brown.button{
+  background-color: #190E08;
+}

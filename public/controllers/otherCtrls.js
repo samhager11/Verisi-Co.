@@ -26,10 +26,16 @@
         var self = this
         self.message = 'Checking the signup controller'
       }
+      
       function searchController(){
         var self = this
         self.message = 'Checking the search controller'
+
+        self.search = function(){
+          self.searchParams = {}
+        }
       }
+
       function collectionsController(){
         var self = this
         self.message = 'Checking the collections controller'

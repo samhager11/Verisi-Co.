@@ -1,45 +1,16 @@
 
-    <div class="ui four column grid">
-
-        <div class="column">
-          <div class="ui horizontal divider"><i class="github icon"></i></div>
-          Search results will go here
-          <div class="ui accordion">
-            <div class="active title">
-              <i class="dropdown icon"></i>
-              "Search Details Go Here"
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <div class="ui horizontal divider"><i class="github icon"></i></div>
-          Search results will go here
-          <div class="ui accordion">
-            <div class="active title">
-              <i class="dropdown icon"></i>
-              "Search Details Go Here"
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <div class="ui horizontal divider"><i class="github icon"></i></div>
-          Search results will go here
-          <div class="ui accordion">
-            <div class="active title">
-              <i class="dropdown icon"></i>
-              "Search Details Go Here"
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <div class="ui horizontal divider"><i class="github icon"></i></div>
-          Search results will go here
-          <div class="ui accordion">
-            <div class="active title">
-              <i class="dropdown icon"></i>
-              "Search Details Go Here"
-            </div>
-          </div>
-        </div>
-
+<form class="ui form segment" ng-submit="searchCtrl.submit()">
+  <div class="two fields">
+    <div class="field">
+      <label>Address</label>
+      <input type="text" name="first-name" placeholder="Address">
     </div>
+    <div class="field">
+      <label>City/State/Zip</label>
+      <input type="text" name="last-name" placeholder="CityStateZip">
+    </div>
+  </div>
+  <button class="ui brown button"  type="submit">
+    Find It
+  </button>
+</form>
