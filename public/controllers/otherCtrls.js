@@ -11,6 +11,7 @@
       .controller('groupController', groupController)
       .controller('prospectController', prospectController)
 
+      searchController.$inject = ['searches']
 
 
       function homeController(){
@@ -22,17 +23,30 @@
         var self = this
         self.message = 'Checking the login controller'
       }
+
       function signupController(){
         var self = this
         self.message = 'Checking the signup controller'
       }
-      
-      function searchController(){
-        var self = this
-        self.message = 'Checking the search controller'
 
-        self.search = function(){
-          self.searchParams = {}
+      function searchController(searches){
+        var self = this
+
+        self.message = 'Checking the search controller'
+        self.api = searches
+        self.address = null
+        self.cityStateZip = null
+        self.prospect = {}
+
+        self.search = function(address, cityStateZip){
+          self.api.runSearch(address,cityStateZip).success(function(response){
+            // console.log(response)
+            var x2js = new X2JS();
+            var zillowReturn  =  x2js.xml_str2json(response)
+            self.prospect = zillowReturn.searchresults.response.results.result
+            console.log(self.prospect)
+
+          })
         }
       }
 
@@ -40,10 +54,12 @@
         var self = this
         self.message = 'Checking the collections controller'
       }
+
       function comparablesController(){
         var self = this
         self.message = 'Checking the comparables controller'
       }
+
       function resourcesController(){
         var self = this
         self.message = 'Checking the resources controller'

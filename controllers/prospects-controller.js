@@ -24,6 +24,7 @@ function create(req, res){
   prospect.address = req.body.address
   prospect.cityStateZip = req.body.cityStateZip
   prospect.zillowId = req.body.zillowId
+  prospect.links = req.body.links
   prospect.zillowData = req.body.zillowData
   prospect.zilpyData = req.body.zilpyData
   prospect.comments.push(req.body.newComment)

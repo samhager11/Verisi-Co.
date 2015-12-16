@@ -1,13 +1,13 @@
 
-<form class="ui form segment" ng-submit="searchCtrl.submit()">
+<form class="ui form segment" ng-submit="searchCtrl.search(searchCtrl.address,searchCtrl.cityStateZip)">
   <div class="two fields">
     <div class="field">
       <label>Address</label>
-      <input type="text" name="first-name" placeholder="Address">
+      <input type="text" name="first-name" placeholder="Address" ng-model="searchCtrl.address">
     </div>
     <div class="field">
       <label>City/State/Zip</label>
-      <input type="text" name="last-name" placeholder="CityStateZip">
+      <input type="text" name="last-name" placeholder="CityStateZip" ng-model="searchCtrl.cityStateZip">
     </div>
   </div>
   <button class="ui brown button"  type="submit">
