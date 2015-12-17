@@ -1,46 +1,20 @@
 
-    <div class="ui four column grid">
-
+    <div class="ui grid">
         <div class="column">
-          <div class="ui horizontal divider"><i class="github icon"></i></div>
-            Saved Prospects will go here
-          <div class="ui accordion">
-            <div class="active title">
-              <i class="dropdown icon"></i>
-              "Prospect Details Go Here"
+          <div class="ui center aligned raised segment" ng-repeat="array in collectionsCtrl.groupArrays">
+          <!-- <div ng-repeat="property in array"> -->
+          <h2 class="ui icon header">
+            <i class="home icon"></i>
+            <div class="content">
+
+              <div class="sub header">Saved Properties for {{array[0].groupName}}</div>
             </div>
-          </div>
-        </div>
-
-    </div>
-
-    <div class="column">
-      <div class="ui horizontal divider"><i class="github icon"></i></div>
-        Saved Prospects will go here
-      <div class="ui accordion">
-        <div class="active title">
-          <i class="dropdown icon"></i>
-          "Prospect Details Go Here"
-        </div>
-      </div>
-    </div>
-    <div class="column">
-      <div class="ui horizontal divider"><i class="github icon"></i></div>
-        Saved Prospects will go here
-      <div class="ui accordion">
-        <div class="active title">
-          <i class="dropdown icon"></i>
-          "Prospect Details Go Here"
-        </div>
-      </div>
-    </div>
-    <div class="column">
-      <div class="ui horizontal divider"><i class="github icon"></i></div>
-        Saved Prospects will go here
-      <div class="ui accordion">
-        <div class="active title">
-          <i class="dropdown icon"></i>
-          "Prospect Details Go Here"
+          </h2>
+          <div class="ui horizontal divider"></div>
+            <div class="ui center aligned content" ng-repeat="property in array">
+                {{property.prospectName}} &nbsp; | &nbsp; {{property.zillowData.address.street}} &nbsp; - &nbsp;{{property.zillowData.address.city}} &nbsp; |
+                &nbsp; {{property.strategy}} &nbsp; | &nbsp; {{property.zillowData.zestimate.amount.__text | currency}}
+            </div>
         </div>
       </div>
     </div>

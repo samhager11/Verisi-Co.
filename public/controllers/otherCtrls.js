@@ -88,11 +88,33 @@
         var self = this
         self.savedProspects = []
         self.api = prospects
+        self.groupCheck = []
+        self.groupArrays = []
 
         self.api.listProspects().success(function(response){
-            self.savedProspects.push(response)
-            console.log(self.savedProspects)
+            self.savedProspects = response
+
+            // push unique group names into array to use for reference
+            for(var g=0; g<self.savedProspects.length; g++){
+              if(self.groupCheck.indexOf(self.savedProspects[g].groupName)=== -1){
+                self.groupCheck.push(self.savedProspects[g].groupName)
+                self.groupArrays.push(self.savedProspects[g].groupName)
+              }
+            }
+            // for each unique group name, create array of objects containing that group name
+            for(i=0; i<self.groupCheck.length; i++){
+              self.groupArrays[i] = []
+              for(j=0; j<self.savedProspects.length; j++){
+                if(self.savedProspects[j].groupName === self.groupCheck[i]){
+                  self.groupArrays[i].push(self.savedProspects[j])
+                }
+              }
+              console.log(self.groupCheck)
+              console.log(self.groupArrays)
+            }
+
         })
+
 
       }
 
