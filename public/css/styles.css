@@ -5,7 +5,7 @@
 }
 
 nav.ui.menu{
-  background-color: #190E08;
+  background-color: #0D7054;
   color: white;
 }
 
@@ -13,6 +13,26 @@ nav.ui.menu{
   color: white;
 }
 
-.ui.brown.button{
+.ui.button{
   background-color: #190E08;
+  color: white;
+}
+
+#block {
+    background: yellow;
+    height: 0;
+    overflow: hidden;
+    transition: height 300ms linear;
+}
+
+label {
+    cursor: pointer;
+}
+
+#showblock {
+    display: none;
+}
+
+#showblock:checked + #block {
+    height: 40px;
 }

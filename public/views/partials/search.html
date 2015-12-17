@@ -10,7 +10,71 @@
       <input type="text" name="last-name" placeholder="CityStateZip" ng-model="searchCtrl.cityStateZip">
     </div>
   </div>
-  <button class="ui brown button"  type="submit">
+  <button class="ui button"  type="submit">
     Find It
   </button>
 </form>
+
+<div class="ui container">
+  <div class="ui items" >
+    <div class="item">
+      <div class="ui grid">
+        <div class="three wide column">
+        <img src="/images/home.png" style="height:100px; width:100px">
+        <div class="search content">
+          <a class="header">{{searchCtrl.propObject.address.street}}</a><br>
+          <a class="header">{{searchCtrl.propObject.address.city}}, {{searchCtrl.propObject.address.state}}</a>
+          <div class="meta">
+            <span>{{searchCtrl.propObject.zestimate.amount.__text | currency}}</span>
+          </div>
+          <div class="description">
+            <p></p>
+          </div>
+        </div>
+      </div>
+      <div class="nine wide column">
+          <div class="search content">
+            <div class="ui styled accordion">
+              <div class="title active">
+                <i class="dropdown icon"></i>
+                Additional Details
+              </div>
+              <div class="content active">
+                <ul>
+                  <a href={{searchCtrl.propObject.links.comparables}}><li>Zillow Comparables</li></a>
+                </ul>
+                <!-- <p class="transition visible">
+                  Testing the accordion
+                </p> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class = "four wide column">
+        <form class="ui form segment" ng-submit="searchCtrl.saveToDB(searchCtrl.propName,searchCtrl.groupName,searchCtrl.propObject)">
+
+            <div class="field">
+              <label>Property Name</label>
+              <input type="text" name="first-name" placeholder="Name this Property" ng-model="searchCtrl.propName">
+            </div>
+            <div class="field">
+              <label>Select Group</label>
+              <input type="text" name="last-name" placeholder="Select Group for this Property" ng-model="searchCtrl.groupName">
+            </div>
+
+          <button class="ui button"  data-zpid="{{prop.zpid}}" type="submit">
+            Add to Group {{prop.zpid}}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="ui grid">
+
+  <div class="four wide column"></div>
+  <div class="twelve wide column"></div>
+
+</div>

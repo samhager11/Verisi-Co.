@@ -115,8 +115,7 @@
         //   headers: {
         //
         //   }
-        // }
-
+        
         return $http.get(zillowUrl)
         //
         // // Create the XHR object.
@@ -165,7 +164,7 @@
         //
         //   xhr.send();
         // }
-
+        //
       }
 
       return searches

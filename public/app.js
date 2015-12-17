@@ -6,5 +6,5 @@
     //on every http request, the authInterceptor from authService.js method will be run
     $httpProvider.interceptors.push('AuthInterceptor')
   })
-
+  
 }())
