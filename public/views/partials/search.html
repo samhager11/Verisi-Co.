@@ -37,11 +37,14 @@
             <div class="ui styled accordion">
               <div class="title active">
                 <i class="dropdown icon"></i>
-                Additional Details
+                Property Search Details
               </div>
-              <div class="content active">
+              <div class="content active" ng-if="searchCtrl.propObject">
                 <ul>
                   <a href={{searchCtrl.propObject.links.comparables}}><li>Zillow Comparables</li></a>
+                  <a href={{searchCtrl.propObject.links.graphsanddata}}><li>Graphs and Data</li></a>
+                  <a href={{searchCtrl.propObject.links.homedetails}}><li>Property Details</li></a>
+                  <a href={{searchCtrl.propObject.links.mapthishome}}><li>Property Map</li></a>
                 </ul>
                 <!-- <p class="transition visible">
                   Testing the accordion
@@ -50,31 +53,25 @@
             </div>
           </div>
         </div>
-      <div class = "four wide column">
-        <form class="ui form segment" ng-submit="searchCtrl.saveToDB(searchCtrl.propName,searchCtrl.groupName,searchCtrl.propObject)">
+      <div class = "four wide column" ng-if="searchCtrl.propObject">
+        <form class="ui center aligned form segment" ng-submit="searchCtrl.saveProp()">
 
-            <div class="field">
-              <label>Property Name</label>
-              <input type="text" name="first-name" placeholder="Name this Property" ng-model="searchCtrl.propName">
+            <div class="ui input">
+              <input type="text" name="property-name" placeholder="Name this Property" ng-model="searchCtrl.prospectName">
             </div>
-            <div class="field">
-              <label>Select Group</label>
-              <input type="text" name="last-name" placeholder="Select Group for this Property" ng-model="searchCtrl.groupName">
+            <div class="ui input">
+              <input type="text" name="strategy" placeholder="Property Strategy" ng-model="searchCtrl.strategy">
+            </div>
+            <div class="ui input">
+              <input type="text" name="group-name" placeholder= "Group Name" ng-model="searchCtrl.groupName">
             </div>
 
-          <button class="ui button"  data-zpid="{{prop.zpid}}" type="submit">
-            Add to Group {{prop.zpid}}
+          <button class="ui button"  data-zpid="{{searchCtrl.propObject.zpid}}" type="submit">
+            Add this Property to Group
           </button>
         </form>
       </div>
     </div>
   </div>
 </div>
-</div>
-
-<div class="ui grid">
-
-  <div class="four wide column"></div>
-  <div class="twelve wide column"></div>
-
 </div>

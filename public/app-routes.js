@@ -31,6 +31,11 @@
           controller: 'collectionsController',
           controllerAs: 'collectionsCtrl'
         })
+        .when('/collections/detail', {
+          templateUrl: 'views/partials/collections-detail.html',
+          controller: 'collectionsController',
+          controllerAs: 'collectionsCtrl'
+        })
         .when('/comparables', {
           templateUrl: 'views/partials/comparables.html',
           controller: 'comparablesController',

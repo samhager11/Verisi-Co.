@@ -1,5 +1,5 @@
 (function(){
-  angular.module('otherCtrls', ['otherServices'])
+  angular.module('otherCtrls', ['otherServices','authService'])
       .controller('homeController', homeController)
       .controller('loginController', loginController)
       .controller('signupController', signupController)
@@ -11,7 +11,8 @@
       .controller('groupController', groupController)
       .controller('prospectController', prospectController)
 
-      searchController.$inject = ['searches']
+      collectionsController.$inject = ['prospects']
+      searchController.$inject = ['searches','prospects','Auth']
 
 
       function homeController(){
@@ -29,20 +30,22 @@
         self.message = 'Checking the signup controller'
       }
 
-      function searchController(searches){
+      function searchController(searches, prospects, Auth){
         var self = this
 
         self.message = 'Checking the search controller'
-        self.searchFacotry = searches
+        self.searchFactory = searches
+        self.prospectFactory = prospects
         self.address = null
         self.cityStateZip = null
         self.prospects = []
-        self.propObject = {}
+        self.propObject = null
         self.propName = null
         self.groupName = null
+        self.user = null
 
         self.search = function(address, cityStateZip){
-          self.searchFacotry.runSearch(address,cityStateZip).success(function(response){
+          self.searchFactory.runSearch(address,cityStateZip).success(function(response){
             // console.log(response)
             var x2js = new X2JS();
             var zillowReturn  =  x2js.xml_str2json(response)
@@ -53,17 +56,44 @@
           })
         }
 
-        self.saveToDb = function(propName, groupName, propObject){
-            self.propObject =
+        self.saveProp = function(){
+            // Auth.getUser().then(function(data){
+            //   self.user = data.data
+            // })
+            // console.log(self.user)
+            console.log('saving property....')
+            var data = {prospectName: self.prospectName,
+              strategy: self.strategy,
+              groupName: self.groupName,
+              zillowId: self.propObject.zpid,
+              zillowData: self.propObject
+            }
 
+            self.prospectFactory.addProspect(data).then(function(response){
+              console.log('Saved property!')
+
+            })
+
+            self.propObject = null
             self.propName = null
+            self.strategy = null
             self.groupName = null
-        }
+            self.address = null
+            self.cityStateZip = null
+
+          }
       }
 
-      function collectionsController(){
+      function collectionsController(prospects){
         var self = this
-        self.message = 'Checking the collections controller'
+        self.savedProspects = []
+        self.api = prospects
+
+        self.api.listProspects().success(function(response){
+            self.savedProspects.push(response)
+            console.log(self.savedProspects)
+        })
+
       }
 
       function comparablesController(){

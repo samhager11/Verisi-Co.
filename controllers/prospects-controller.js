@@ -18,25 +18,25 @@ function create(req, res){
 
   //set the prospects information (comes from the request)
   prospect.prospectName = req.body.prospectName
+  prospect.groupName = req.body.groupName
   prospect.creator = req.body.creator
   prospect.strategy = req.body.strategy
-  prospect.prospectName = req.body.prospectName
-  prospect.address = req.body.address
-  prospect.cityStateZip = req.body.cityStateZip
   prospect.zillowId = req.body.zillowId
-  prospect.links = req.body.links
+  // prospect.rank = req.body.rank
   prospect.zillowData = req.body.zillowData
   prospect.zilpyData = req.body.zilpyData
-  prospect.comments.push(req.body.newComment)
+  // prospect.comments.push(req.body.newComment)
 
 
 
   //save the prospect and check for errors
   prospect.save(function(err){
     if(err){
+      console.log(err)
       //duplicate entry
-      if(err.code == 11000)
-        return res.json({ success: false, message: 'A prospect with that prospectname already exists'})
+      // if(err.code == 11000)
+        // return res.json({ success: false, message: 'A prospect with that prospectname already exists'})
+        return err
     }
   })
 }
@@ -59,9 +59,10 @@ function edit(req, res){
     if(req.body.strategy) prospect.strategy = req.body.strategy
     if(req.body.groupName) prospect.groupName = req.body.groupName
     if(req.body.zillowId) prospect.zillowId = req.body.zillowId
+    if(req.body.rank) prospect.rank = req.body.rank
     if(req.body.zillowData) prospect.zillowData = req.body.zillowData
     if(req.body.zilpyData) prospect.zilpyData = req.body.zilpyData
-    if(req.body.comments) prospect.comments = req.body.comments
+    if(req.body.comments) prospect.comments.push(req.body.comments)
     //save the prospect
     prospect.save(function(err){
       if(err) res.send(err);

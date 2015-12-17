@@ -1,6 +1,6 @@
 (function(){
 
-  angular.module('mainCtrl', [])
+  angular.module('mainCtrl', ['authService'])
     .controller('mainController', mainController)
 
   mainController.$inject = ['$rootScope', '$location', 'Auth']
