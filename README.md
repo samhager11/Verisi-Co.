@@ -2,7 +2,7 @@
 
 
 
-#**Verisi Real Estate Collaboration**
+#**Verisi Co.**
 
 Github Repo: https://github.com/samhager11/Verisi-Co.
 
