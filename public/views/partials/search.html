@@ -11,7 +11,7 @@
     </div>
   </div>
   <button class="ui button"  type="submit">
-    Find It
+    <i class="find icon"></i>&nbsp;  Find It 
   </button>
 </form>
 
@@ -20,12 +20,12 @@
     <div class="item">
       <div class="ui grid">
         <div class="three wide column">
-        <img src="/images/home.png" style="height:100px; width:100px">
+          <h2 class="ui icon header"><i class="home icon"></i></h2>
         <div class="search content">
-          <a class="header">{{searchCtrl.propObject.address.street}}</a><br>
-          <a class="header">{{searchCtrl.propObject.address.city}} {{searchCtrl.propObject.address.state}}</a>
+          <p class="header">{{searchCtrl.propObject.zillowSearch.address.street}}</p>
+          <p class="header">{{searchCtrl.propObject.zillowSearch.address.city}} {{searchCtrl.propObject.zillowSearch.address.state}}</p>
           <div class="meta">
-            <span>{{searchCtrl.propObject.zestimate.amount.__text | currency}}</span>
+            <span>{{searchCtrl.propObject.zillowSearch.zestimate.amount.__text | currency}}</span>
           </div>
           <div class="description">
             <p></p>

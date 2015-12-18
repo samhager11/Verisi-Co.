@@ -3,10 +3,69 @@
 *{
   /*border: 2px dashed blue;*/
 }
+#verisiHeader{
+  font-family: 'Playfair Display SC', serif;
+}
 
+#jumboHeader{
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  color: whitesmoke;
+}
+
+#navText{
+  margin: 0 auto;
+  margin-top: 15px;
+  font-family: 'Playfair Display SC', serif;
+}
+
+#working-late{
+  margin: 0 auto;
+  width: 500px;
+  height: 200px
+}
+
+#loggedInJumbo{
+  display: block;
+  text-align: justify;
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  color: whitesmoke;
+  background-image: url("../images/darkwood.jpg");
+  background-size: 100% 100%;
+
+}
+
+#notLoggedInJumbo{
+  display: block;
+  /*text-align: justify;*/
+  font-family: 'Playfair Display SC', serif;
+  background-image: url("../images/swedish-lodge.jpg");
+  background-size: 100% 100%;
+  /*background-size: cover;*/
+  height: 300px;
+}
+
+
+
+#icons{
+  color: black;
+  margin: 0 auto;
+  text-align: center
+}
+
+#homeButtons{
+  width: 150px;
+}
+
+.column{
+  text-align: center;
+}
 nav.ui.menu{
-  background-color: #0D7054;
+  background-color: #1FAC92;
   color: white;
+}
+
+#back-to-properties{
+  float: left;
 }
 
 .ui.menu .item {
@@ -17,6 +76,16 @@ nav.ui.menu{
   background-color: #190E08;
   color: white;
 }
+
+button.tiny.ui.button{
+  background-color: #190E08;
+  color: white;
+}
+
+#links{
+  color: white;
+}
+
 
 #block {
     background: yellow;
@@ -44,3 +113,18 @@ button.ui.fluid.button {
 /*.properties{
   background-color: #0D7054
 }*/
+
+.stat{
+  font-size: 20px;
+  font-variant-caps: all-small-caps;
+}
+
+.bottomStat{
+  font-size: 20px;
+  font-variant-caps: all-small-caps;
+
+}
+
+.description{
+  margin-top: 10px
+}

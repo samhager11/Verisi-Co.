@@ -22,31 +22,148 @@
             </div>
         </div>
 
-        <div ng-show="propertiesCtrl.property">
-            <div class="ui center aligned segment">
-
-                <div class="image">
-                  <img src="{{propertiesCtrl.property.zillowData.zillowChart.url}}">
-                </div>
-                <div class="content">
-                  <a class="header">Kristy</a>
-                  <div class="meta">
-                    <span class="date">Joined in 2013</span>
-                  </div>
-                  <div class="description">
-                    Kristy is an art director living in New York.
-                  </div>
-                </div>
-                <div class="extra content">
-                  <a>
-                    <i class="user icon"></i>
-                    22 Friends
-                  </a>
-                </div>
-
-            </div>
         </div>
-
       </div>
     </div>
+
+    <div ng-show="propertiesCtrl.property">
+        <div class="ui center aligned segment">
+          <button  ng-click="propertiesCtrl.property=null" class="ui button" id="back-to-properties">Back to Properties</button>
+          <h3>{{propertiesCtrl.property.groupName}}</h3>
+            <div class="image">
+              <img src="{{propertiesCtrl.property.zillowData.zillowChart.url}}">
+            </div>
+            <div class="content">
+              <h4>{{propertiesCtrl.property.prospectName}}:  &nbsp; 5 Year Price</h4>
+
+                <h4><span class="date">Strategy:  &nbsp;{{propertiesCtrl.property.strategy}}</span></h4>
+                <h4><span class="date">ZillowId:  &nbsp;#{{propertiesCtrl.property.zillowId}}</span></h4>
+
+              <div class="description">
+                <h3>Zillow Links:</h3>&nbsp; &nbsp;
+                        <button class="tiny ui button"><a id="links" href="{{propertiesCtrl.property.zillowData.zillowSearch.links.comparables}}">Comparables</a></button>
+                            <button class="tiny ui button" ><a id="links" href="{{propertiesCtrl.property.zillowData.zillowSearch.links.graphsanddata}}">Data</a></button>
+                            <button class="tiny ui button" ><a id="links" href="{{propertiesCtrl.property.zillowData.zillowSearch.links.homedetails}}">Details</a></button>
+                            <button class="tiny ui button" ><a id="links" href="{{propertiesCtrl.property.zillowData.zillowSearch.links.mapthishome}">Map</a></button>
+                  </div>
+                </div>
+            </div>
+            <div class="ui center aligned segment">
+            <div class="ui grid">
+                <div class="four wide column" id="thisProp">
+                  <div class="ui segment">
+                    <i class="home icon"></i>
+                    <h2>Selected</h2>
+                    <div class="ui raised segment stat">
+                      <div class="value">
+                        {{propertiesCtrl.property.zillowData.zillowComps.principal.finishedSqFt}}
+                      </div>
+                      <div class="label">
+                        Finished Sq. Ft
+                      </div>
+                      <div class="value">
+                        {{propertiesCtrl.property.zillowData.zillowComps.principal.bedrooms}} / {{propertiesCtrl.property.zillowData.zillowComps.principal.bathrooms}}
+                      </div>
+                      <div class="label">
+                        Beds/Baths
+                      </div>
+                    </div>
+                    <div class="ui raised segment stat">
+                      <div class="value">
+                        {{propertiesCtrl.property.zillowData.zillowComps.principal.zestimate.amount.__text | currency}}
+                      </div>
+                      <div class="label">
+                        Z-Estimate
+                      </div>
+                    </div>
+                    <div class="ui raised segment stat">
+                      <div class="value">
+                        {{propertiesCtrl.property.zillowData.zillowComps.principal.lastSoldPrice.__text | currency}}
+                      </div>
+                      <div class="label">
+                          Last Sold: {{propertiesCtrl.property.zillowData.zillowComps.principal.lastSoldDate}}
+                      </div>
+                    </div>
+                </div>
+              </div>
+                <div class="four wide column" ng-repeat = "comparable in propertiesCtrl.property.zillowData.zillowComps.comparables.comp  | filter:query | orderBy:_score | limitTo:3">
+                  <div class="ui segment">
+                    <i class="home icon"></i>
+                    <h2>Comparable</h2>
+                      <div class="ui raised segment stat">
+                          <div class="value">
+                            {{comparable.finishedSqFt}}
+                          </div>
+                          <div class="label">
+                            Finished Sq. Ft
+                          </div>
+                          <div class="value">
+                            {{comparable.bedrooms}} /   {{comparable.bathrooms}}
+                          </div>
+                          <div class="label">
+                            Beds/Baths
+                          </div>
+                      </div>
+                      <div class="ui raised segment stat">
+                          <div class="value">
+                            {{comparable.zestimate.amount.__text | currency}}
+                          </div>
+                          <div class="label">
+                            Z-Estimate
+                          </div>
+                      </div>
+
+                      <div class="ui raised segment stat">
+                          <div class="value">
+                            {{comparable.lastSoldPrice.__text | currency}}
+                          </div>
+                          <div class="label">
+                            Last Sold: {{comparable.lastSoldDate}}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+    <div class="ui segment">
+      <div class="ui four column grid">
+          <div class="column center aligned bottomStat">
+            <div class="value">
+              {{propertiesCtrl.property.zillowData.zillowComps.principal.zestimate.valuationRange.high.__text | currency }}
+            </div>
+            <div class="label">
+              <i class="line chart icon"></i> Valuation Range
+            </div>
+            <div class="value">
+              {{propertiesCtrl.property.zillowData.zillowComps.principal.zestimate.valuationRange.low.__text | currency }}
+            </div>
+          </div>
+          <div class="column center aligned bottomStat">
+            <div class="label">
+              <i class="marker icon"></i> Area:
+            </div>
+            <div class="text value">
+              {{propertiesCtrl.property.zillowData.zillowComps.principal.localRealEstate.region._name}}
+            </div>
+
+          </div>
+          <div class="column center aligned bottomStat">
+            <div class="label">
+              <i class="calendar icon"></i>
+               Year Built
+            </div>
+            <div class="value">
+              {{propertiesCtrl.property.zillowData.zillowComps.principal.yearBuilt}}
+            </div>
+          </div>
+          <div class="column center aligned bottomStat">
+            <div class="label">
+                <i class="ellipsis vertical icon"></i>Percentile
+            </div>
+            <div class="value">
+                {{propertiesCtrl.property.zillowData.zillowComps.principal.zestimate.percentile}}%
+            </div>
+          </div>
+      </div>
   </div>
+</div>

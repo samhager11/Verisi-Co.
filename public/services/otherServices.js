@@ -127,7 +127,7 @@
       }
 
       searches.getChart = function(zpid){
-        var zillowUrl = zillowUpdatedDetails + "&unit-type=dollar&zpid=" + zpid + "&width=300&height=150&chartDuration=5years"
+        var zillowUrl = zillowChart + "&unit-type=dollar&zpid=" + zpid + "&width=300&height=150&chartDuration=5years"
           console.log("Zillow chart: " + zillowUrl)
           return $http.get(zillowUrl)
       }
