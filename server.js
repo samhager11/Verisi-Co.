@@ -37,7 +37,7 @@ app.use(express.static('public'))
 app.use(function(req, res, next){
     res.setHeader('Acces-Control-Allow-Origin', '*')
     res.setHeader('Acces-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
-    res.setHeader('Acces-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization')
+    res.setHeader('Acces-Control-Allow-Headers', 'X-Requested-With,x-access-token,content-type, Authorization')
 
     next()
 })

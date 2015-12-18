@@ -11,7 +11,7 @@
     </div>
   </div>
   <button class="ui button"  type="submit">
-    <i class="find icon"></i>&nbsp;  Find It 
+    <i class="find icon"></i>&nbsp;  Find It
   </button>
 </form>
 
@@ -40,12 +40,12 @@
                 Property Search Details
               </div>
               <div class="content active" ng-if="searchCtrl.propObject.zillowSearch">
-                <ul>
-                  <a href={{searchCtrl.propObject.zillowSearch.links.comparables}}><li>Zillow Comparables</li></a>
-                  <a href={{searchCtrl.propObject.zillowSearch.links.graphsanddata}}><li>Graphs and Data</li></a>
-                  <a href={{searchCtrl.propObject.zillowSearch.links.homedetails}}><li>Property Details</li></a>
-                  <a href={{searchCtrl.propObject.zillowSearch.links.mapthishome}}><li>Property Map</li></a>
-                </ul>
+
+                  <a href={{searchCtrl.propObject.zillowSearch.links.comparables}}><p>Zillow Comparables</p></a>
+                  <a href={{searchCtrl.propObject.zillowSearch.links.graphsanddata}}><p>Graphs and Data</p></a>
+                  <a href={{searchCtrl.propObject.zillowSearch.links.homedetails}}><p>Property Details</p></a>
+                  <a href={{searchCtrl.propObject.zillowSearch.links.mapthishome}}><p>Property Map</p></a>
+              
                 <!-- <p class="transition visible">
                   Testing the accordion
                 </p> -->
