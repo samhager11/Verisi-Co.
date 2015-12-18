@@ -128,6 +128,8 @@
 
         })
 
+        self.editing = false
+
         self.showProperty = function(propId){
           self.api.showProspect(propId).success(function(response){
             self.property = response
@@ -139,6 +141,19 @@
           self.api.removeProspect(propId).success(function(response){
             console.log(response)
             self.property = null
+          })
+        }
+
+        self.editProperty = function(propId,data){
+          var data = {groupName: self.property.newGroup, prospectName: self.property.newName, strategy: self.property.newStrategy}
+          self.api.updateProspect(self.property._id, data).success(function(response){
+            console.log('edit success')
+
+            self.api.showProspect(self.property._id).success(function(response){
+              self.property = response
+              self.editing = false
+              console.log(response)
+            })
           })
         }
 

@@ -41,14 +41,7 @@ function create(req, res){
   })
 }
 
-//Find and display one prospect
-function show(req, res){
-  Prospect.findById(req.params.prospect_id, function(err, prospect){
-    if(err) res.send(err)
-    //return prospect
-    res.json(prospect)
-  })
-}
+
 
 //Edit a prospect
 function edit(req, res){
@@ -69,6 +62,15 @@ function edit(req, res){
       //return a message
       res.json({message: "Prospect updated"})
     })
+  })
+}
+
+//Find and display one prospect
+function show(req, res){
+  Prospect.findById(req.params.prospect_id, function(err, prospect){
+    if(err) res.send(err)
+    //return prospect
+    res.json(prospect)
   })
 }
 

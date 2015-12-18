@@ -30,9 +30,27 @@
         <div class="ui center aligned segment">
           <div class="ui segment" id="property-header">
               <h3 id="property-group">{{propertiesCtrl.property.groupName}}</h3>
-              <button  ng-click="propertiesCtrl.property=null" class="ui button" id="back-to-properties">Edit this Property</button>
-              <button  ng-click="propertiesCtrl.property=null" class="ui button" id="back-to-properties" ng-click="propertiesCtrl.deleteProperty(propertiesCtrl.property._id)">Delete this Property</button>
+              <button  ng-click="propertiesCtrl.editing = true" class="ui button" id="back-to-properties">Edit this Property</button>
+              <button class="ui button" id="back-to-properties" ng-click="propertiesCtrl.deleteProperty(propertiesCtrl.property._id)">Delete this Property</button>
               <button  ng-click="propertiesCtrl.property=null" class="ui button" id="back-to-properties">Back to Properties</button>
+              <div ng-show="propertiesCtrl.editing" class="ui segment">
+                <form  class="ui form segment" ng-submit="propertiesCtrl.editProperty()">
+                  <div class="field">
+                    <label>Group Name</label>
+                    <input type="text" name="group-name" placeholder="Group Name" ng-model="propertiesCtrl.property.newGroup">
+                  </div>
+                  <div class="field">
+                    <label>Property Name</label>
+                    <input type="text" name="property-name" placeholder="Property Name" ng-model="propertiesCtrl.property.newName">
+                  </div>
+                  <div class="field">
+                    <label>Strategy</label>
+                    <input type="text" name="strategy" placeholder="Strategy" ng-model="propertiesCtrl.property.newStrategy">
+                  </div>
+                  <button class="ui button" type="submit">Submit</button>
+                </form>
+              </div>
+
           </div>
             <div class="image">
               <img src="{{propertiesCtrl.property.zillowData.zillowChart.url}}">
