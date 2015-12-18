@@ -1,0 +1,52 @@
+
+    <div class="ui grid">
+        <div class="column">
+          <div class="ui segments">
+          <div ng-show="!propertiesCtrl.property" class="ui center aligned raised segment properties" ng-repeat="array in propertiesCtrl.groupArrays">
+          <h2 class="ui icon header">
+            <i class="home icon"></i>
+            <div class="content">
+
+              <div class="sub header">Saved Properties for {{array[0].groupName}}</div>
+            </div>
+          </h2>
+          <div class="ui horizontal divider"></div>
+
+            <div class="ui center aligned raised segment" ng-repeat="property in array">
+
+              <button class="ui fluid button" ng-click="propertiesCtrl.showProperty(property._id)">
+                {{property.prospectName}} &nbsp; | &nbsp; {{property.zillowData.zillowSearch.address.street}} &nbsp; - &nbsp;{{property.zillowData.zillowSearch.address.city}} &nbsp; |
+                &nbsp; {{property.strategy}} &nbsp; | &nbsp; {{property.zillowData.zillowSearch.zestimate.amount.__text | currency}}
+              </button>
+
+            </div>
+        </div>
+
+        <div ng-show="propertiesCtrl.property">
+            <div class="ui center aligned segment">
+
+                <div class="image">
+                  <img src="{{propertiesCtrl.property.zillowData.zillowChart.url}}">
+                </div>
+                <div class="content">
+                  <a class="header">Kristy</a>
+                  <div class="meta">
+                    <span class="date">Joined in 2013</span>
+                  </div>
+                  <div class="description">
+                    Kristy is an art director living in New York.
+                  </div>
+                </div>
+                <div class="extra content">
+                  <a>
+                    <i class="user icon"></i>
+                    22 Friends
+                  </a>
+                </div>
+
+            </div>
+        </div>
+
+      </div>
+    </div>
+  </div>

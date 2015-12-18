@@ -103,15 +103,33 @@
     function searches($http){
       var apiKey = "X1-ZWz1f1owqx0utn_70ucn"
       var zillowUrlBase = "http://www.zillow.com/webservice/GetSearchResults.htm?zws-id=" + apiKey
+      var zillowDeepCompsBase = "http://www.zillow.com/webservice/GetDeepComps.htm?zws-id=" + apiKey
+      var zillowUpdatedDetails = "http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=" + apiKey
+      var zillowChart = "http://www.zillow.com/webservice/GetChart.htm?zws-id=" + apiKey
       searches = {}
       var prospectsUrl = 'api/v1/prospects'
 
       searches.runSearch = function(address,cityStateZip){
-        zillowUrl = zillowUrlBase + "&address=" + address + "&citystatezip="+ cityStateZip
-        console.log("Zillow Url from factory: " + zillowUrl)
-
+        var zillowUrl = zillowUrlBase + "&address=" + address + "&citystatezip="+ cityStateZip
         return $http.get(zillowUrl)
+      }
 
+      searches.getDeepComps = function(zpid){
+        var zillowUrl = zillowDeepCompsBase + "&zpid=" + zpid + "&count=10"
+          console.log("Zillow deep comps: " + zillowUrl)
+          return $http.get(zillowUrl)
+      }
+
+      searches.getUpdatedDetails = function(zpid){
+        var zillowUrl = zillowUpdatedDetails + "&zpid=" + zpid
+          console.log("Zillow updated details: " + zillowUrl)
+          return $http.get(zillowUrl)
+      }
+
+      searches.getChart = function(zpid){
+        var zillowUrl = zillowUpdatedDetails + "&unit-type=dollar&zpid=" + zpid + "&width=300&height=150&chartDuration=5years"
+          console.log("Zillow chart: " + zillowUrl)
+          return $http.get(zillowUrl)
       }
 
       return searches

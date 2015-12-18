@@ -1,28 +1,19 @@
 (function(){
   angular.module('otherCtrls', ['otherServices','authService'])
       .controller('homeController', homeController)
-      .controller('loginController', loginController)
-      .controller('signupController', signupController)
       .controller('searchController', searchController)
-      .controller('collectionsController', collectionsController)
-      .controller('comparablesController', comparablesController)
-      .controller('resourcesController', resourcesController)
+      .controller('propertiesController', propertiesController)
       .controller('userController', userController)
       .controller('groupController', groupController)
-      .controller('prospectController', prospectController)
 
-      collectionsController.$inject = ['prospects']
+
+      propertiesController.$inject = ['prospects']
       searchController.$inject = ['searches','prospects','Auth']
 
 
       function homeController(){
         var self = this
         self.heading = 'VERISI A HOME NOW'
-      }
-
-      function loginController(){
-        var self = this
-        self.message = 'Checking the login controller'
       }
 
       function signupController(){
@@ -39,21 +30,42 @@
         self.address = null
         self.cityStateZip = null
         self.prospects = []
-        self.propObject = null
+        self.propObject = {}
         self.propName = null
         self.groupName = null
         self.user = null
+        self.zpid = null
 
         self.search = function(address, cityStateZip){
+          //Property Details Search
           self.searchFactory.runSearch(address,cityStateZip).success(function(response){
-            // console.log(response)
             var x2js = new X2JS();
             var zillowReturn  =  x2js.xml_str2json(response)
-            var zillowId = zillowReturn.searchresults.response.results.result.zpid
-            self.propObject = zillowReturn.searchresults.response.results.result
-            console.log(self.propObject)
+            self.zpid = zillowReturn.searchresults.response.results.result.zpid
+            self.propObject.zillowSearch = zillowReturn.searchresults.response.results.result
+
+            //If property found, get deep comps in api call to zillow
+            self.searchFactory.getDeepComps(self.zpid).success(function(comps){
+              var x2js = new X2JS();
+              var zillowComps =  x2js.xml_str2json(comps)
+              self.propObject.zillowComps = zillowComps.comps.response.properties
+            })
+            // self.searchFactory.getUpdatedDetails(self.zpid).success(function(details){
+            //   var x2js = new X2JS();
+            //   var zillowDetails =  x2js.xml_str2json(details)
+            //   console.log(zillowDetails)
+            //   // self.propObject.zillowDetails = zillowDetails.details.response
+            //   // console.log("from details: " + self.propObject)
+            // })
+            //If property found, get chart in api call to zillow
+            self.searchFactory.getChart(self.zpid).success(function(chart){
+              var x2js = new X2JS();
+              var zillowChart =  x2js.xml_str2json(chart)
+              self.propObject.zillowChart = zillowChart.chart.response
+            })
 
           })
+
         }
 
         self.saveProp = function(){
@@ -62,10 +74,10 @@
             // })
             // console.log(self.user)
             console.log('saving property....')
-            var data = {prospectName: self.prospectName,
+            var data = {prospectName: self.propName,
               strategy: self.strategy,
               groupName: self.groupName,
-              zillowId: self.propObject.zpid,
+              zillowId: self.propObject.zillowSearch.zpid,
               zillowData: self.propObject
             }
 
@@ -74,7 +86,7 @@
 
             })
 
-            self.propObject = null
+            self.propObject = {}
             self.propName = null
             self.strategy = null
             self.groupName = null
@@ -84,12 +96,13 @@
           }
       }
 
-      function collectionsController(prospects){
+      function propertiesController(prospects,$routeParams){
         var self = this
         self.savedProspects = []
         self.api = prospects
         self.groupCheck = []
         self.groupArrays = []
+        self.property = null
 
         self.api.listProspects().success(function(response){
             self.savedProspects = response
@@ -109,19 +122,30 @@
                   self.groupArrays[i].push(self.savedProspects[j])
                 }
               }
-              console.log(self.groupCheck)
+              // console.log(self.groupCheck)
               console.log(self.groupArrays)
             }
 
         })
 
+        self.showProperty = function(propId){
+          self.api.showProspect(propId).success(function(response){
+            self.property = response
+            console.log(response)
+          })
+        }
 
-      }
 
-      function comparablesController(){
-        var self = this
-        self.message = 'Checking the comparables controller'
-      }
+
+      //   // retrieve a car based on the url parameter for carId, then set this controller's 'car' property to the response to show it on the front-end
+      //   self.showCar = function(carId){
+      //       self.api.show(carId).success(function(response){
+      //         self.car = response
+      //       })
+      //     }
+      //     self.showCar($routeParams.carId)
+      //
+    }
 
       function resourcesController(){
         var self = this
@@ -136,8 +160,5 @@
         var self = this
       }
 
-      function prospectController(){
-        var self = this
-      }
 
 }())

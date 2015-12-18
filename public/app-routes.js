@@ -26,20 +26,15 @@
           controller: 'searchController',
           controllerAs: 'searchCtrl'
         })
-        .when('/collections', {
-          templateUrl: 'views/partials/collections.html',
-          controller: 'collectionsController',
-          controllerAs: 'collectionsCtrl'
+        .when('/properties', {
+          templateUrl: 'views/partials/properties.html',
+          controller: 'propertiesController',
+          controllerAs: 'propertiesCtrl'
         })
-        .when('/collections/detail', {
-          templateUrl: 'views/partials/collections-detail.html',
-          controller: 'collectionsController',
-          controllerAs: 'collectionsCtrl'
-        })
-        .when('/comparables', {
-          templateUrl: 'views/partials/comparables.html',
-          controller: 'comparablesController',
-          controllerAs: 'comparablesCtrl'
+        .when('/properties/:propId', {
+          templateUrl: 'partials/properties.html',
+          controller: 'propertiesController',
+          controllerAs: 'propertiesCtrl'
         })
         .when('/group', {
           templateUrl: 'views/partials/group.html',

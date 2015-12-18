@@ -36,3 +36,11 @@ label {
 #showblock:checked + #block {
     height: 40px;
 }
+
+button.ui.fluid.button {
+  color: black;
+  background-color: white
+}
+/*.properties{
+  background-color: #0D7054
+}*/

@@ -7,7 +7,7 @@
     </div>
     <div class="field">
       <label>City/State/Zip</label>
-      <input type="text" name="last-name" placeholder="CityStateZip" ng-model="searchCtrl.cityStateZip">
+      <input type="text" name="last-name" placeholder="City State Zip" ng-model="searchCtrl.cityStateZip">
     </div>
   </div>
   <button class="ui button"  type="submit">
@@ -23,7 +23,7 @@
         <img src="/images/home.png" style="height:100px; width:100px">
         <div class="search content">
           <a class="header">{{searchCtrl.propObject.address.street}}</a><br>
-          <a class="header">{{searchCtrl.propObject.address.city}}, {{searchCtrl.propObject.address.state}}</a>
+          <a class="header">{{searchCtrl.propObject.address.city}} {{searchCtrl.propObject.address.state}}</a>
           <div class="meta">
             <span>{{searchCtrl.propObject.zestimate.amount.__text | currency}}</span>
           </div>
@@ -39,12 +39,12 @@
                 <i class="dropdown icon"></i>
                 Property Search Details
               </div>
-              <div class="content active" ng-if="searchCtrl.propObject">
+              <div class="content active" ng-if="searchCtrl.propObject.zillowSearch">
                 <ul>
-                  <a href={{searchCtrl.propObject.links.comparables}}><li>Zillow Comparables</li></a>
-                  <a href={{searchCtrl.propObject.links.graphsanddata}}><li>Graphs and Data</li></a>
-                  <a href={{searchCtrl.propObject.links.homedetails}}><li>Property Details</li></a>
-                  <a href={{searchCtrl.propObject.links.mapthishome}}><li>Property Map</li></a>
+                  <a href={{searchCtrl.propObject.zillowSearch.links.comparables}}><li>Zillow Comparables</li></a>
+                  <a href={{searchCtrl.propObject.zillowSearch.links.graphsanddata}}><li>Graphs and Data</li></a>
+                  <a href={{searchCtrl.propObject.zillowSearch.links.homedetails}}><li>Property Details</li></a>
+                  <a href={{searchCtrl.propObject.zillowSearch.links.mapthishome}}><li>Property Map</li></a>
                 </ul>
                 <!-- <p class="transition visible">
                   Testing the accordion
@@ -53,11 +53,11 @@
             </div>
           </div>
         </div>
-      <div class = "four wide column" ng-if="searchCtrl.propObject">
+      <div class = "four wide column" ng-if="searchCtrl.propObject.zillowSearch">
         <form class="ui center aligned form segment" ng-submit="searchCtrl.saveProp()">
 
             <div class="ui input">
-              <input type="text" name="property-name" placeholder="Name this Property" ng-model="searchCtrl.prospectName">
+              <input type="text" name="property-name" placeholder="Name this Property" ng-model="searchCtrl.propName">
             </div>
             <div class="ui input">
               <input type="text" name="strategy" placeholder="Property Strategy" ng-model="searchCtrl.strategy">
