@@ -39,7 +39,7 @@ Additional UX Design was implemented via consultation during the creation of fro
 Additional npm packages were installed to aid the construction of the application and must therefore be installed using <npm install> in your terminal upon obtaining the source code.
 
 ##**Wireframes and Screenshots**
-![Verisi Wireframe](./Readme-images/Schema_Wireframe.jpgt)
+![Verisi Wireframe](./Readme-images/Schema_Wireframe.jpg)
 
 
 ##**User Stories**
