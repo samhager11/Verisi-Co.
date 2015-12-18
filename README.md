@@ -38,6 +38,10 @@ Additional UX Design was implemented via consultation during the creation of fro
 
 Additional npm packages were installed to aid the construction of the application and must therefore be installed using <npm install> in your terminal upon obtaining the source code.
 
+##**Wireframes and Screenshots**
+![Verisi Wireframe](./Readme-images/Schema_Wireframe.jpgt)
+
+
 ##**User Stories**
 
 User 1: I am a user who wants to get involved in real estate but doesn't know where to start. I need an app where I can save resources that I can quickly reference as I continue to learn more about investing in real estate.

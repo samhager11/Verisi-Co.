@@ -93,6 +93,7 @@
       }
 
       prospects.removeProspect =function(prospectId){
+        console.log('removing prospect from factory')
         return $http.delete(prospectsUrl + '/' + prospectId)
       }
 

@@ -135,6 +135,13 @@
           })
         }
 
+        self.deleteProperty = function(propId){
+          self.api.removeProspect(propId).success(function(response){
+            console.log(response)
+            self.property = null
+          })
+        }
+
 
 
       //   // retrieve a car based on the url parameter for carId, then set this controller's 'car' property to the response to show it on the front-end

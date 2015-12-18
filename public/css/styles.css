@@ -64,8 +64,21 @@ nav.ui.menu{
   color: white;
 }
 
-#back-to-properties{
+#property-header{
+  height: 70px
+}
+
+#property-group{
   float: left;
+}
+
+#back-to-properties{
+  float: right;
+}
+
+
+#detail-buttons{
+
 }
 
 .ui.menu .item {
