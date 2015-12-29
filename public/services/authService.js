@@ -9,7 +9,7 @@
 
   Auth.$inject = ['$http','$q','AuthToken']
   AuthToken.$inject = ['$window']
-  AuthInterceptor.$inject = ['$q', 'AuthToken']
+  AuthInterceptor.$inject = ['$location', '$q', 'AuthToken']
 
   //=============================================================================
   //Auth factory to login to get information
@@ -87,7 +87,7 @@
 
   //==============================================================================
   //application configuration to integrate token into requests
-  function AuthInterceptor($q,AuthToken){
+function AuthInterceptor($location, $q, AuthToken){
   var interceptorFactory = {}
 
   //attach the token to every HTTP request
@@ -104,6 +104,7 @@
   interceptorFactory.responseError = function(response){
     //if our server returns a 403 forbidden response
     if(response.status === 403){
+      console.log('no token present so redirected')
       $location.path('/login')
     }
     //return the errors from the server as a promise

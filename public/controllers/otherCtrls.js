@@ -21,14 +21,17 @@
         self.message = 'Checking the signup controller'
       }
 
+      //Controller for properties prior to saving and saving property
+      //note use of prospectFactory in this function due to zillow api calls
+      //being moved to server (api)
       function searchController(searches, prospects, Auth){
         var self = this
 
         self.message = 'Checking the search controller'
         self.searchFactory = searches
         self.prospectFactory = prospects
-        self.address = null
-        self.cityStateZip = null
+        // self.address = null
+        // self.cityStateZip = null
         self.prospects = []
         self.propObject = {}
         self.propName = null
@@ -36,36 +39,70 @@
         self.user = null
         self.zpid = null
 
-        self.search = function(address, cityStateZip){
-          //Property Details Search
-          self.searchFactory.runSearch(address,cityStateZip).success(function(response){
+        self.search = function(){
+          var data = {address: self.address,
+                      cityStateZip: self.cityStateZip}
+          //Save the response from our api to self.propObject then use save funciton
+          //below to save (two different click events - Search and Save)
+
+          //Run search on address and return object from zillow
+          self.prospectFactory.searchProspect(data).success(function(response){
             var x2js = new X2JS();
             var zillowReturn  =  x2js.xml_str2json(response)
             self.zpid = zillowReturn.searchresults.response.results.result.zpid
             self.propObject.zillowSearch = zillowReturn.searchresults.response.results.result
 
-            //If property found, get deep comps in api call to zillow
-            self.searchFactory.getDeepComps(self.zpid).success(function(comps){
-              var x2js = new X2JS();
-              var zillowComps =  x2js.xml_str2json(comps)
-              self.propObject.zillowComps = zillowComps.comps.response.properties
+            //if property found via zillow then get deep comps, updated details and chart data
+            self.prospectFactory.compsProspect(self.zpid).success(function(response){
+
             })
-            // self.searchFactory.getUpdatedDetails(self.zpid).success(function(details){
-            //   var x2js = new X2JS();
-            //   var zillowDetails =  x2js.xml_str2json(details)
-            //   console.log(zillowDetails)
-            //   // self.propObject.zillowDetails = zillowDetails.details.response
-            //   // console.log("from details: " + self.propObject)
-            // })
-            //If property found, get chart in api call to zillow
-            self.searchFactory.getChart(self.zpid).success(function(chart){
-              var x2js = new X2JS();
-              var zillowChart =  x2js.xml_str2json(chart)
-              self.propObject.zillowChart = zillowChart.chart.response
+
+            self.prospectFactory.detailsProspect(self.zpid).success(function(response){
+
             })
+
+            self.prospectFactory.chartProspect(self.zpid).success(function(response){
+              
+            })
+
+
+
+            console.log(self.propObject)
 
           })
 
+
+          // //Property Details Search
+          // self.searchFactory.runSearch(address,cityStateZip).success(function(response){
+            // var x2js = new X2JS();
+            // var zillowReturn  =  x2js.xml_str2json(response)
+          //   self.zpid = zillowReturn.searchresults.response.results.result.zpid
+          //   self.propObject.zillowSearch = zillowReturn.searchresults.response.results.result
+          //
+          //   //If property found, get deep comps in api call to zillow
+          //   self.searchFactory.getDeepComps(self.zpid).success(function(comps){
+          //     var x2js = new X2JS();
+          //     var zillowComps =  x2js.xml_str2json(comps)
+          //     self.propObject.zillowComps = zillowComps.comps.response.properties
+          //   })
+          //   //If property found get updated details including pictures
+          //   self.searchFactory.getUpdatedDetails(self.zpid).success(function(details){
+          //     var x2js = new X2JS();
+          //     var zillowDetails =  x2js.xml_str2json(details)
+          //     console.log(zillowDetails)
+          //     self.propObject.zillowDetails = zillowDetails.details.response
+          //     console.log("checking updated details from search controller: " + self.propObject.zillowDetails)
+          //   })
+          //   // If property found, get chart in api call to zillow
+          //   self.searchFactory.getChart(self.zpid).success(function(chart){
+          //     var x2js = new X2JS();
+          //     var zillowChart =  x2js.xml_str2json(chart)
+          //     self.propObject.zillowChart = zillowChart.chart.response
+          //   })
+          //
+          // })
+          // address = null
+          // cityStateZip = null
         }
 
         self.saveProp = function(){
@@ -96,6 +133,7 @@
           }
       }
 
+      //Controller for properties once saved
       function propertiesController(prospects,$routeParams){
         var self = this
         self.savedProspects = []

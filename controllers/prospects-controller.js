@@ -1,6 +1,9 @@
 //require the user model to be used here
-var Prospect = require('../models/prospect-model.js')
+var Prospect = require('../models/prospect-model.js'),
+    request = require('request')
+    // x2js = require('../public/libs/xml2json/xml2json.js')
 
+console.log(typeof(x2js))
 
 //create index action to display all prospects
 function index(req, res){
@@ -10,7 +13,67 @@ function index(req, res){
     })
 }
 
-//method to create a prospect
+function search(req, res){
+  console.log("hitting search api endpoint")
+
+  var searchObject = {}
+  var apiKey = "X1-ZWz1f1owqx0utn_70ucn"
+  var zillowSearchBase = "http://www.zillow.com/webservice/GetSearchResults.htm?zws-id=" + apiKey
+  var zillowDeepCompsBase = "http://www.zillow.com/webservice/GetDeepComps.htm?zws-id=" + apiKey
+  var zillowUpdatedDetails = "http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=" + apiKey
+  var zillowChart = "http://www.zillow.com/webservice/GetChart.htm?zws-id=" + apiKey
+
+  var address = null
+  var cityStateZip = null
+
+
+
+  address = req.body.address
+  cityStateZip = req.body.cityStateZip
+
+  var zillowSearchUrl = zillowSearchBase + "&address=" + address + "&citystatezip="+ cityStateZip
+
+
+  request(zillowSearchUrl, function(error, response, body){
+    if(error){
+      console.log(error)
+    } else {
+      console.log(body)
+      res.json(body)
+    }
+
+  })
+
+  // searches.runSearch = function(address,cityStateZip){
+  //   var zillowUrl = zillowUrlBase + "&address=" + address + "&citystatezip="+ cityStateZip
+  //   return $http.get(zillowUrl)
+  // }
+  //
+  // searches.getDeepComps = function(zpid){
+  //   var zillowUrl = zillowDeepCompsBase + "&zpid=" + zpid + "&count=10"
+  //     console.log("Zillow deep comps: " + zillowUrl)
+  //     return $http.get(zillowUrl)
+  // }
+  //
+  // searches.getUpdatedDetails = function(zpid){
+  //   var zillowUrl = zillowUpdatedDetails + "&zpid=" + zpid
+  //     console.log("Zillow updated details: " + zillowUrl)
+  //     return $http.get(zillowUrl)
+  // }
+  //
+  // searches.getChart = function(zpid){
+  //   var zillowUrl = zillowChart + "&unit-type=dollar&zpid=" + zpid + "&width=300&height=150&chartDuration=5years"
+  //     console.log("Zillow chart: " + zillowUrl)
+  //     return $http.get(zillowUrl)
+  // }
+
+
+
+
+}
+
+
+//method to save a prospect (have to run search to display item first)
 function create(req, res){
   console.log('creating a prospect')
   //create a new instance of the prospect model
@@ -88,5 +151,6 @@ module.exports = {
   createProspect: create,
   showProspect: show,
   editProspect: edit,
-  deleteProspect: destroy
+  deleteProspect: destroy,
+  searchProspect: search
 }

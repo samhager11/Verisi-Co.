@@ -74,7 +74,12 @@
 
     function prospects($http){
       var prospectsUrl = 'api/v1/prospects'
+      var prospectSearch = 'api/v1/prospects/search'
       var prospectFactory = {}
+
+      prospects.searchProspect = function(data){
+        return $http.post(prospectSearch, data)
+      }
 
       prospects.listProspects = function(){
         return $http.get(prospectsUrl)

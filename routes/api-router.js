@@ -111,6 +111,9 @@ apiRoutes.route('/prospects')
   .get(prospectsController.getAllProspects)
   .post(prospectsController.createProspect)
 
+apiRoutes.route('/prospects/search')
+  .post(prospectsController.searchProspect)
+
 apiRoutes.route('/prospects/:prospect_id')
   .get(prospectsController.showProspect)
   .put(prospectsController.editProspect)
