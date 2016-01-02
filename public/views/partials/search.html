@@ -1,4 +1,4 @@
-
+<!-- Form for searching -->
 <form class="ui form segment" ng-submit="searchCtrl.search()">
   <div class="two fields">
     <div class="field">
@@ -15,63 +15,82 @@
   </button>
 </form>
 
-<div class="ui container">
-  <div class="ui items" >
-    <div class="item">
-      <div class="ui grid">
-        <div class="three wide column">
-          <h2 class="ui icon header"><i class="home icon"></i></h2>
-        <div class="search content">
-          <p class="header">{{searchCtrl.propObject.zillowSearch.address.street}}</p>
-          <p class="header">{{searchCtrl.propObject.zillowSearch.address.city}} {{searchCtrl.propObject.zillowSearch.address.state}}</p>
-          <div class="meta">
-            <span>{{searchCtrl.propObject.zillowSearch.zestimate.amount.__text | currency}}</span>
-          </div>
-          <div class="description">
-            <p></p>
-          </div>
-        </div>
-      </div>
-      <div class="nine wide column">
-          <div class="search content">
-            <div class="ui styled accordion">
-              <div class="title active">
-                <i class="dropdown icon"></i>
-                Property Search Details
-              </div>
-              <div class="content active" ng-if="searchCtrl.propObject.zillowSearch">
-
-                  <a href={{searchCtrl.propObject.zillowSearch.links.comparables}}><p>Zillow Comparables</p></a>
-                  <a href={{searchCtrl.propObject.zillowSearch.links.graphsanddata}}><p>Graphs and Data</p></a>
-                  <a href={{searchCtrl.propObject.zillowSearch.links.homedetails}}><p>Property Details</p></a>
-                  <a href={{searchCtrl.propObject.zillowSearch.links.mapthishome}}><p>Property Map</p></a>
-
-                <!-- <p class="transition visible">
-                  Testing the accordion
-                </p> -->
-              </div>
-            </div>
-          </div>
-        </div>
-      <div class = "four wide column" ng-if="searchCtrl.propObject.zillowSearch">
-        <form class="ui center aligned form segment" ng-submit="searchCtrl.saveProp()">
-
-            <div class="ui input">
-              <input type="text" name="property-name" placeholder="Name this Property" ng-model="searchCtrl.propName">
-            </div>
-            <div class="ui input">
-              <input type="text" name="strategy" placeholder="Property Strategy" ng-model="searchCtrl.strategy">
-            </div>
-            <div class="ui input">
-              <input type="text" name="group-name" placeholder= "Group Name" ng-model="searchCtrl.groupName">
-            </div>
-
-          <button class="ui button"  data-zpid="{{searchCtrl.propObject.zpid}}" type="submit">
-            Add this Property to Group
-          </button>
-        </form>
-      </div>
+<!-- Search results card -->
+<div class="ui card search-card">
+  <div class="image">
+    <img ng-if="searchCtrl.propObject.zillowDetails" src={{searchCtrl.propObject.zillowDetails.images.image.url}}>
+    <h2 ng-if="!searchCtrl.propObject.zillowDetails" class="ui icon header"><i class="home icon"></i></h2>
+  </div>
+  <div ng-if="searchCtrl.propObject" class="content">
+    <p class="header">{{searchCtrl.propObject.zillowSearch.address.street}}, {{searchCtrl.propObject.zillowSearch.address.city}}</p>
+    <div class="meta">
+      <span class="date">Listed at: {{searchCtrl.propObject.zillowSearch.zestimate.amount.__text | currency}}</span>
+    </div>
+    <div class="description">
+      Bed/Bath/SqFt.: {{searchCtrl.propObject.zillowComps.principal.bedrooms}} /
+                {{searchCtrl.propObject.zillowComps.principal.bathrooms}} /
+                {{searchCtrl.propObject.zillowComps.principal.finishedSqFt}}
     </div>
   </div>
+  <div ng-if="searchCtrl.propObject" class="extra content">
+      <p>
+        <i class="calendar icon"></i>
+        Year Built: {{searchCtrl.propObject.zillowComps.principal.yearBuilt}}
+      </p>
+
+  </div>
+  <div ng-if="searchCtrl.propObject" class="content">
+    <form class="ui form" ng-submit="searchCtrl.saveProp()">
+
+        <div class="ui input search-input">
+          <input type="text" name="property-name" placeholder="Name this Property" ng-model="searchCtrl.propName">
+        </div>
+        <div class="ui input search-input">
+          <input type="text" name="strategy" placeholder="Property Strategy" ng-model="searchCtrl.strategy">
+        </div>
+        <div class="ui input search-input">
+          <input type="text" name="group-name" placeholder= "Group Name" ng-model="searchCtrl.groupName">
+        </div>
+
+      <button class="ui button search-submit"  data-zpid="{{searchCtrl.propObject.zpid}}" type="submit">
+        Add this Property to Group
+      </button>
+    </form>
+  </div>
+<!-- Content to display if no active search -->
+  <div ng-if="!searchCtrl.propObject" class="content">
+    <a class="header">Location: </a>
+      <div class="meta">
+        <span class="date">Listed at: {{searchCtrl.propObject.zillowSearch.zestimate.amount.__text | currency}}</span>
+      </div>
+      <div class="description">
+        Overview:
+      </div>
+  </div>
 </div>
-</div>
+
+<!-- <div class = "four wide column" ng-if="searchCtrl.propObject.zillowSearch">
+       <form class="ui center aligned form segment" ng-submit="searchCtrl.saveProp()">
+
+           <div class="ui input">
+             <input type="text" name="property-name" placeholder="Name this Property" ng-model="searchCtrl.propName">
+           </div>
+           <div class="ui input">
+             <input type="text" name="strategy" placeholder="Property Strategy" ng-model="searchCtrl.strategy">
+           </div>
+           <div class="ui input">
+             <input type="text" name="group-name" placeholder= "Group Name" ng-model="searchCtrl.groupName">
+           </div>
+
+         <button class="ui button"  data-zpid="{{searchCtrl.propObject.zpid}}" type="submit">
+           Add this Property to Group
+         </button>
+       </form>
+     </div>
+   </div> -->
+
+   <!-- Zillow Links:
+   <a href={{searchCtrl.propObject.zillowSearch.links.comparables}}><p>Zillow Comparables</p></a>
+   <a href={{searchCtrl.propObject.zillowSearch.links.graphsanddata}}><p>Graphs and Data</p></a>
+   <a href={{searchCtrl.propObject.zillowSearch.links.homedetails}}><p>Property Details</p></a>
+   <a href={{searchCtrl.propObject.zillowSearch.links.mapthishome}}><p>Property Map</p></a> -->

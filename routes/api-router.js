@@ -81,7 +81,6 @@ apiRoutes.get('/', function(req, res){
 //Check what info is being sent in the request(token)
 apiRoutes.get('/me', function(req, res){
   res.send(req.decoded)
-  console.log("Decoded token api-router.js file: " + req.decoded)
 })
 
 
@@ -113,6 +112,15 @@ apiRoutes.route('/prospects')
 
 apiRoutes.route('/prospects/search')
   .post(prospectsController.searchProspect)
+
+apiRoutes.route('/prospects/comps')
+  .post(prospectsController.compsProspect)
+
+apiRoutes.route('/prospects/details')
+  .post(prospectsController.detailsProspect)
+
+apiRoutes.route('/prospects/chart')
+  .post(prospectsController.chartProspect)
 
 apiRoutes.route('/prospects/:prospect_id')
   .get(prospectsController.showProspect)

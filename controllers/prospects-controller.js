@@ -3,7 +3,7 @@ var Prospect = require('../models/prospect-model.js'),
     request = require('request')
     // x2js = require('../public/libs/xml2json/xml2json.js')
 
-console.log(typeof(x2js))
+
 
 //create index action to display all prospects
 function index(req, res){
@@ -14,63 +14,105 @@ function index(req, res){
 }
 
 function search(req, res){
-  console.log("hitting search api endpoint")
 
   var searchObject = {}
   var apiKey = "X1-ZWz1f1owqx0utn_70ucn"
   var zillowSearchBase = "http://www.zillow.com/webservice/GetSearchResults.htm?zws-id=" + apiKey
-  var zillowDeepCompsBase = "http://www.zillow.com/webservice/GetDeepComps.htm?zws-id=" + apiKey
-  var zillowUpdatedDetails = "http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=" + apiKey
-  var zillowChart = "http://www.zillow.com/webservice/GetChart.htm?zws-id=" + apiKey
 
   var address = null
   var cityStateZip = null
-
-
 
   address = req.body.address
   cityStateZip = req.body.cityStateZip
 
   var zillowSearchUrl = zillowSearchBase + "&address=" + address + "&citystatezip="+ cityStateZip
 
-
   request(zillowSearchUrl, function(error, response, body){
     if(error){
       console.log(error)
     } else {
-      console.log(body)
-      res.json(body)
+      searchObject = {zillowResult: body, username: req.decoded.username}
+      res.json(searchObject)
     }
 
   })
 
-  // searches.runSearch = function(address,cityStateZip){
-  //   var zillowUrl = zillowUrlBase + "&address=" + address + "&citystatezip="+ cityStateZip
-  //   return $http.get(zillowUrl)
-  // }
-  //
-  // searches.getDeepComps = function(zpid){
-  //   var zillowUrl = zillowDeepCompsBase + "&zpid=" + zpid + "&count=10"
-  //     console.log("Zillow deep comps: " + zillowUrl)
-  //     return $http.get(zillowUrl)
-  // }
-  //
-  // searches.getUpdatedDetails = function(zpid){
-  //   var zillowUrl = zillowUpdatedDetails + "&zpid=" + zpid
-  //     console.log("Zillow updated details: " + zillowUrl)
-  //     return $http.get(zillowUrl)
-  // }
-  //
-  // searches.getChart = function(zpid){
-  //   var zillowUrl = zillowChart + "&unit-type=dollar&zpid=" + zpid + "&width=300&height=150&chartDuration=5years"
-  //     console.log("Zillow chart: " + zillowUrl)
-  //     return $http.get(zillowUrl)
-  // }
-
-
-
-
 }
+
+function comps(req, res){
+
+  var apiKey = "X1-ZWz1f1owqx0utn_70ucn"
+  var zillowDeepCompsBase = "http://www.zillow.com/webservice/GetDeepComps.htm?zws-id=" + apiKey
+
+  var zpid = null
+
+  zpid = req.body.zpid
+
+  var zillowDeepCompsUrl = zillowDeepCompsBase + "&zpid=" + zpid + "&count=10"
+
+  request(zillowDeepCompsUrl, function(error, response, body){
+    if(error){
+      console.log(error)
+    } else {
+      res.json(body)
+    }
+
+  })
+}
+
+function details(req, res){
+  console.log("hitting details api endpoint")
+
+  var apiKey = "X1-ZWz1f1owqx0utn_70ucn"
+  var zillowUpdatedDetails = "http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=" + apiKey
+
+
+  var zpid = null
+
+  zpid = req.body.zpid
+console.log(req.body)
+
+  var zillowUpdatedDetailsUrl = zillowUpdatedDetails + "&zpid=" + zpid
+
+  request(zillowUpdatedDetailsUrl, function(error, response, body){
+    if(error){
+      console.log(error)
+    } else if(!response){
+      res.json({info: "No details available"})
+    }  else {
+      console.log(response)
+      res.json({info: body})
+    }
+
+  })
+}
+
+function chart(req, res){
+  console.log("hitting details api endpoint")
+
+  var apiKey = "X1-ZWz1f1owqx0utn_70ucn"
+  var zillowChart = "http://www.zillow.com/webservice/GetChart.htm?zws-id=" + apiKey
+
+  var zpid = null
+
+  zpid = req.body.zpid
+  console.log(req)
+
+  var zillowChartUrl = zillowChart + "&unit-type=dollar&zpid=" + zpid + "&width=400&height=200&chartDuration=10years"
+
+  request(zillowChartUrl, function(error, response, body){
+    if(error){
+      console.log(error)
+    } else if(!response){
+      res.json({info: "No chart available"})
+    }  else {
+      console.log(response)
+      res.json({info: body})
+    }
+
+  })
+}
+
 
 
 //method to save a prospect (have to run search to display item first)
@@ -152,5 +194,8 @@ module.exports = {
   showProspect: show,
   editProspect: edit,
   deleteProspect: destroy,
-  searchProspect: search
+  searchProspect: search,
+  compsProspect: comps,
+  detailsProspect: details,
+  chartProspect: chart
 }

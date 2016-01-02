@@ -75,11 +75,28 @@
     function prospects($http){
       var prospectsUrl = 'api/v1/prospects'
       var prospectSearch = 'api/v1/prospects/search'
+      var prospectComps = 'api/v1/prospects/comps'
+      var prospectDetails = 'api/v1/prospects/details'
+      var prospectChart = 'api/v1/prospects/chart'
       var prospectFactory = {}
 
+      //factories for zillow api calls made from server////////////
       prospects.searchProspect = function(data){
         return $http.post(prospectSearch, data)
       }
+
+      prospects.compsProspect = function(zpid){
+        return $http.post(prospectComps, zpid)
+      }
+
+      prospects.detailsProspect = function(zpid){
+        return $http.post(prospectDetails, zpid)
+      }
+
+      prospects.chartProspect = function(zpid){
+        return $http.post(prospectChart, zpid)
+      }
+      /////////////////////////////////////////////////////////////
 
       prospects.listProspects = function(){
         return $http.get(prospectsUrl)

@@ -33,13 +33,14 @@
         // self.address = null
         // self.cityStateZip = null
         self.prospects = []
-        self.propObject = {}
+        self.propObject = null
         self.propName = null
         self.groupName = null
         self.user = null
         self.zpid = null
 
         self.search = function(){
+          self.propObject = {}
           var data = {address: self.address,
                       cityStateZip: self.cityStateZip}
           //Save the response from our api to self.propObject then use save funciton
@@ -48,43 +49,38 @@
           //Run search on address and return object from zillow
           self.prospectFactory.searchProspect(data).success(function(response){
             var x2js = new X2JS();
-            var zillowReturn  =  x2js.xml_str2json(response)
+            var zillowReturn  =  x2js.xml_str2json(response.zillowResult)
             self.zpid = zillowReturn.searchresults.response.results.result.zpid
+            self.username = response.username
             self.propObject.zillowSearch = zillowReturn.searchresults.response.results.result
+            var zpid = {zpid: self.zpid}
 
-            //if property found via zillow then get deep comps, updated details and chart data
-            self.prospectFactory.compsProspect(self.zpid).success(function(response){
+              //if property found via zillow then get deep comps, updated details and chart data
+              self.prospectFactory.compsProspect(zpid).success(function(response){
+                 var x2js = new X2JS();
+                 var zillowComps =  x2js.xml_str2json(response)
+                 self.propObject.zillowComps = zillowComps.comps.response.properties
 
+              })
+
+              self.prospectFactory.detailsProspect(zpid).success(function(response){
+                  var x2js = new X2JS();
+                  var zillowDetails =  x2js.xml_str2json(response.info)
+                  self.propObject.zillowDetails = zillowDetails.updatedPropertyDetails.response
+              })
+
+            self.prospectFactory.chartProspect(zpid).success(function(response){
+                  var x2js = new X2JS();
+                  var zillowChart =  x2js.xml_str2json(response.info)
+                  self.propObject.zillowChart = zillowChart.chart.response
             })
-
-            self.prospectFactory.detailsProspect(self.zpid).success(function(response){
-
-            })
-
-            self.prospectFactory.chartProspect(self.zpid).success(function(response){
-              
-            })
-
-
 
             console.log(self.propObject)
 
           })
 
 
-          // //Property Details Search
-          // self.searchFactory.runSearch(address,cityStateZip).success(function(response){
-            // var x2js = new X2JS();
-            // var zillowReturn  =  x2js.xml_str2json(response)
-          //   self.zpid = zillowReturn.searchresults.response.results.result.zpid
-          //   self.propObject.zillowSearch = zillowReturn.searchresults.response.results.result
-          //
-          //   //If property found, get deep comps in api call to zillow
-          //   self.searchFactory.getDeepComps(self.zpid).success(function(comps){
-          //     var x2js = new X2JS();
-          //     var zillowComps =  x2js.xml_str2json(comps)
-          //     self.propObject.zillowComps = zillowComps.comps.response.properties
-          //   })
+
           //   //If property found get updated details including pictures
           //   self.searchFactory.getUpdatedDetails(self.zpid).success(function(details){
           //     var x2js = new X2JS();
@@ -95,9 +91,7 @@
           //   })
           //   // If property found, get chart in api call to zillow
           //   self.searchFactory.getChart(self.zpid).success(function(chart){
-          //     var x2js = new X2JS();
-          //     var zillowChart =  x2js.xml_str2json(chart)
-          //     self.propObject.zillowChart = zillowChart.chart.response
+          //
           //   })
           //
           // })
@@ -112,6 +106,7 @@
             // console.log(self.user)
             console.log('saving property....')
             var data = {prospectName: self.propName,
+              creator: self.username,
               strategy: self.strategy,
               groupName: self.groupName,
               zillowId: self.propObject.zillowSearch.zpid,
@@ -123,8 +118,9 @@
 
             })
 
-            self.propObject = {}
+            self.propObject = null
             self.propName = null
+            self.username = null
             self.strategy = null
             self.groupName = null
             self.address = null

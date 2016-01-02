@@ -56,7 +56,7 @@
               <img src="{{propertiesCtrl.property.zillowData.zillowChart.url}}">
             </div>
             <div class="content">
-              <h4>{{propertiesCtrl.property.prospectName}}:  &nbsp; 5 Year Price</h4>
+              <h4>{{propertiesCtrl.property.prospectName}}:  &nbsp; 10 Year Price Change</h4>
 
                 <h4><span class="date">Strategy:  &nbsp;{{propertiesCtrl.property.strategy}}</span></h4>
                 <h4><span class="date">ZillowId:  &nbsp;#{{propertiesCtrl.property.zillowId}}</span></h4>
@@ -74,73 +74,100 @@
             <div class="ui grid">
                 <div class="four wide column" id="thisProp">
                   <div class="ui segment">
-                    <i class="home icon"></i>
+                    <h5 class="ui icon header"><i class="home icon"></i></h5>
                     <h2>Selected</h2>
                     <div class="ui raised segment stat">
-                      <div class="value">
-                        {{propertiesCtrl.property.zillowData.zillowComps.principal.finishedSqFt}}
+                      <div class="label">
+                        Z-Estimate
                       </div>
+                      <div class="value">
+                        {{propertiesCtrl.property.zillowData.zillowComps.principal.zestimate.amount.__text | currency}}
+                      </div>
+                    </div>
+                    <div class="ui raised segment stat">
                       <div class="label">
                         Finished Sq. Ft
                       </div>
                       <div class="value">
-                        {{propertiesCtrl.property.zillowData.zillowComps.principal.bedrooms}} / {{propertiesCtrl.property.zillowData.zillowComps.principal.bathrooms}}
+                        {{propertiesCtrl.property.zillowData.zillowComps.principal.finishedSqFt}}
                       </div>
                       <div class="label">
                         Beds/Baths
                       </div>
+                      <div class="value">
+                        {{propertiesCtrl.property.zillowData.zillowComps.principal.bedrooms}} / {{propertiesCtrl.property.zillowData.zillowComps.principal.bathrooms}}
+                      </div>
                     </div>
                     <div class="ui raised segment stat">
+                      <div class="label">
+                        Price per Sq. Ft
+                      </div>
                       <div class="value">
-                        {{propertiesCtrl.property.zillowData.zillowComps.principal.zestimate.amount.__text | currency}}
+                        {{propertiesCtrl.property.zillowData.zillowComps.principal.zestimate.amount.__text / propertiesCtrl.property.zillowData.zillowComps.principal.finishedSqFt | currency}}
                       </div>
                       <div class="label">
-                        Z-Estimate
+                        Price per Bedroom
+                      </div>
+                      <div class="value">
+                        {{propertiesCtrl.property.zillowData.zillowComps.principal.zestimate.amount.__text / propertiesCtrl.property.zillowData.zillowComps.principal.bedrooms | currency}}
                       </div>
                     </div>
                     <div class="ui raised segment stat">
-                      <div class="value">
-                        {{propertiesCtrl.property.zillowData.zillowComps.principal.lastSoldPrice.__text | currency}}
-                      </div>
                       <div class="label">
                           Last Sold: {{propertiesCtrl.property.zillowData.zillowComps.principal.lastSoldDate}}
+                      </div>
+                      <div class="value">
+                        {{propertiesCtrl.property.zillowData.zillowComps.principal.lastSoldPrice.__text | currency}}
                       </div>
                     </div>
                 </div>
               </div>
                 <div class="four wide column" ng-repeat = "comparable in propertiesCtrl.property.zillowData.zillowComps.comparables.comp  | filter:query | orderBy:_score | limitTo:3">
                   <div class="ui segment">
-                    <i class="home icon"></i>
+                    <h5 class="ui icon header"><i class="home icon"></i></h5>
                     <h2>Comparable</h2>
                       <div class="ui raised segment stat">
-                          <div class="value">
-                            {{comparable.finishedSqFt}}
+                          <div class="label">
+                            Z-Estimate
                           </div>
+                          <div class="value">
+                            {{comparable.zestimate.amount.__text | currency}}
+                          </div>
+                      </div>
+                      <div class="ui raised segment stat">
                           <div class="label">
                             Finished Sq. Ft
                           </div>
                           <div class="value">
-                            {{comparable.bedrooms}} /   {{comparable.bathrooms}}
+                            {{comparable.finishedSqFt}}
                           </div>
                           <div class="label">
                             Beds/Baths
                           </div>
+                          <div class="value">
+                            {{comparable.bedrooms}} /   {{comparable.bathrooms}}
+                          </div>
                       </div>
                       <div class="ui raised segment stat">
+                          <div class="label">
+                            Price per Sq. Ft
+                          </div>
                           <div class="value">
-                            {{comparable.zestimate.amount.__text | currency}}
+                            {{comparable.zestimate.amount.__text / comparable.finishedSqFt | currency}}
                           </div>
                           <div class="label">
-                            Z-Estimate
+                            Price per Bedroom
+                          </div>
+                          <div class="value">
+                            {{comparable.zestimate.amount.__text / comparable.bedrooms | currency}}
                           </div>
                       </div>
-
                       <div class="ui raised segment stat">
-                          <div class="value">
-                            {{comparable.lastSoldPrice.__text | currency}}
-                          </div>
                           <div class="label">
                             Last Sold: {{comparable.lastSoldDate}}
+                          </div>
+                          <div class="value">
+                            {{comparable.lastSoldPrice.__text | currency}}
                           </div>
                       </div>
                   </div>
