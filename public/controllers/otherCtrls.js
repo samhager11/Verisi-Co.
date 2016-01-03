@@ -190,17 +190,6 @@
             })
           })
         }
-
-
-
-      //   // retrieve a car based on the url parameter for carId, then set this controller's 'car' property to the response to show it on the front-end
-      //   self.showCar = function(carId){
-      //       self.api.show(carId).success(function(response){
-      //         self.car = response
-      //       })
-      //     }
-      //     self.showCar($routeParams.carId)
-      //
     }
 
       function resourcesController(){

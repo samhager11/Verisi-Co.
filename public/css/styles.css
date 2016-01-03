@@ -86,6 +86,15 @@ nav.ui.menu{
 
 /*Property Details Styling=====================================*/
 
+#show-group{
+  /*color: black;*/
+  /*float: right;*/
+}
+
+/*#show-comparables{
+  color: black;
+}*/
+
 #property-header{
   height: 70px
 }
