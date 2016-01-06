@@ -5,13 +5,17 @@
     <title>Verisi Co.</title>
     <base href="/">
 
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Playfair+Display+SC:700,900,400italic,400,700italic,900italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="libs/semantic/dist/semantic.min.css">
     <link rel="stylesheet" href="/css/styles.css" media="screen" title="no title" charset="utf-8">
+    <script src="libs/jquery.js" charset="utf-8"></script>
     <script src="libs/angular.js" charset="utf-8"></script>
     <script src="libs/angular-route.min.js" charset="utf-8"></script>
+    <script src="libs/ng-map.min.js" charset="utf-8"></script>
     <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/X.Y.Z/angular-touch.js" charset="utf-8"></script> -->
-    <script src="libs/jquery.js" charset="utf-8"></script>
+
     <script src="libs/semantic/dist/semantic.js"></script>
     <script src="libs/xml2json/xml2json.js"></script>
     <script src="app-routes.js" charset="utf-8"></script>
@@ -26,7 +30,7 @@
     <div ng-if="mainCtrl.loggedIn">
       <nav class="ui menu" >
         <a href = "/properties">
-          <h3 id="verisiHeader" class="header item">Verisi Co.</h3>
+          <h3 id="verisiHeader" class="header item"><i class="map icon"></i> V E R I S I</h3>
         </a>
         <a class="item" href="/search">Search</a>
         <a class="item" href="/properties">Properties</a>
@@ -38,8 +42,8 @@
           <div class="row">
               <div class="column padding-reset">
                   <div class="ui huge message page grid" id="loggedInJumbo">
-                      <h1 id="jumboHeader" class="ui huge header">Hello, {{mainCtrl.user.name}}</h1>
-                      <p>Show your group what properties they should be looking at</p>
+                      <!-- <h1 id="jumboHeader" class="ui huge header">H e l l o, {{mainCtrl.user.name}}</h1> -->
+                      <h3 id="jumboHeader">C o l l a b o r a t e . &nbsp; C o m m u n i c a t e . &nbsp;  C l o s e .</h3>
                       <!-- <a class="ui blue button">Learn more »</a> -->
                   </div>
               </div>
@@ -49,7 +53,7 @@
     <div ng-if="!mainCtrl.loggedIn">
       <nav class="ui menu" >
         <a href = "/">
-          <h3 id="verisiHeader" class="header item">Verisi Co.&nbsp;<i class="unhide icon"></i></h3>
+          <h3 id="verisiHeader" class="header item"><i class="map icon"></i> V E R I S I</h3>
         </a>
         <a class="item" href="/login">Login</a>
         <a class="item" href="/signup">Sign Up</a>
@@ -71,12 +75,25 @@
 
     </div>
     <!-- Footer Content -->
-    <div class="row">
-        <div class="column">
+    <!-- <div class="row">
+        <div class="column" id="footer">
             <div class="ui divider"></div>
             <span>© Verisi Co.</span>
         </div>
+    </div> -->
+
+
+    <div id="footer">
+          <div class="copyright">
+              &copy; Verisi Co. <br>
+               All rights reserved.
+          </div>
+          <!-- <div class="social">
+              <ul>
+              </ul>
+          </div> -->
     </div>
+
   </body>
 
 </html>

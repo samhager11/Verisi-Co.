@@ -1,4 +1,4 @@
-<!-- This is the top section containing graph and map -->
+<!-- This is the main properties page that lists each Property by Group-->
     <div ng-show="!propertiesCtrl.property" class="ui grid">
 
         <div class="two column row">
@@ -19,7 +19,7 @@
                       <p>
                         {{property.prospectName}} &nbsp; | &nbsp; {{property.zillowData.zillowSearch.address.street}} &nbsp; - &nbsp;{{property.zillowData.zillowSearch.address.city}} &nbsp; |
                         &nbsp; {{property.strategy}} &nbsp; | &nbsp; {{property.zillowData.zillowSearch.zestimate.amount.__text | currency}} &nbsp; | &nbsp;
-                        <button class="ui tiny button" id="show-group" type="button" name="comparables" ng-click="propertiesCtrl.showProperty(property._id)">Show Details</button>
+                        <button class="ui tiny basic button" id="show-group" type="button" name="comparables" ng-click="propertiesCtrl.showProperty(property._id)">Show Details</button>
                       </p>
                     </div>
                   </div>
@@ -29,6 +29,26 @@
       </div>
 
   </div>
+
+  <!-- Edit property box that shows when button is clicked (and "editing" property is true) -->
+  <div ng-show="propertiesCtrl.editing" class="ui segment">
+    <form  class="ui form segment" ng-submit="propertiesCtrl.editProperty()">
+      <div class="field">
+        <label>Group Name</label>
+        <input type="text" name="group-name" placeholder="Group Name" ng-model="propertiesCtrl.property.newGroup">
+      </div>
+      <div class="field">
+        <label>Property Name</label>
+        <input type="text" name="property-name" placeholder="Property Name" ng-model="propertiesCtrl.property.newName">
+      </div>
+      <div class="field">
+        <label>Strategy</label>
+        <input type="text" name="strategy" placeholder="Strategy" ng-model="propertiesCtrl.property.newStrategy">
+      </div>
+      <button class="ui button" type="submit">Submit</button>
+    </form>
+  </div>
+
 <!-- This section to show comparables if a single property clicked (for comparables and group props)  -->
     <div ng-show="propertiesCtrl.property">
         <div class="ui center aligned segment">
@@ -37,26 +57,7 @@
               <h3 id="property-group">{{propertiesCtrl.property.groupName}}</h3>
               <button  ng-click="propertiesCtrl.editing = true" class="ui button" id="back-to-properties">Edit this Property</button>
               <button class="ui button" id="back-to-properties" ng-click="propertiesCtrl.deleteProperty(propertiesCtrl.property._id)">Delete this Property</button>
-              <button  ng-click="propertiesCtrl.property=null" class="ui button" id="back-to-properties">Back to Properties</button>
-
-              <!-- Edit property box that shows when button is clicked (and "editing" property is true) -->
-              <div ng-show="propertiesCtrl.editing" class="ui segment">
-                <form  class="ui form segment" ng-submit="propertiesCtrl.editProperty()">
-                  <div class="field">
-                    <label>Group Name</label>
-                    <input type="text" name="group-name" placeholder="Group Name" ng-model="propertiesCtrl.property.newGroup">
-                  </div>
-                  <div class="field">
-                    <label>Property Name</label>
-                    <input type="text" name="property-name" placeholder="Property Name" ng-model="propertiesCtrl.property.newName">
-                  </div>
-                  <div class="field">
-                    <label>Strategy</label>
-                    <input type="text" name="strategy" placeholder="Strategy" ng-model="propertiesCtrl.property.newStrategy">
-                  </div>
-                  <button class="ui button" type="submit">Submit</button>
-                </form>
-              </div>
+              <button  ng-click="propertiesCtrl.property=null; propertiesCtrl.compareProps=[]; propertiesCtrl.compareName='Choose Comparable'" class="ui button" id="back-to-properties">Back to Properties</button>
           </div>
 
           <!-- Header Section containing Graph and Map side by side -->
@@ -69,9 +70,9 @@
                   <h3>Strategy: &nbsp;{{propertiesCtrl.property.strategy}}</h3>
                   <h3>Zillow Links:</h3>&nbsp; &nbsp;
                       <button class="tiny ui button"><a id="links" href="{{propertiesCtrl.property.zillowData.zillowSearch.links.comparables}}">Comparables</a></button>
-                      <button class="tiny ui button" ><a id="links" href="{{propertiesCtrl.property.zillowData.zillowSearch.links.graphsanddata}}">Data</a></button>
-                      <button class="tiny ui button" ><a id="links" href="{{propertiesCtrl.property.zillowData.zillowSearch.links.homedetails}}">Details</a></button>
-                      <button class="tiny ui button" ><a id="links" href="{{propertiesCtrl.property.zillowData.zillowSearch.links.mapthishome}">Map</a></button>
+                      <button class="tiny ui button"><a id="links" href="{{propertiesCtrl.property.zillowData.zillowSearch.links.graphsanddata}}">Data</a></button>
+                      <button class="tiny ui button"><a id="links" href="{{propertiesCtrl.property.zillowData.zillowSearch.links.homedetails}}">Details</a></button>
+                      <button class="tiny ui button"><a id="links" href="{{propertiesCtrl.property.zillowData.zillowSearch.links.mapthishome}">Map</a></button>
             </div>
             <div class="ten wide column">
               Google Map goes here
@@ -120,20 +121,26 @@
           </div>
       </div>
   </div>
-  <!-- Table for group property comparisons -->
+
+  <!-- Table for group property comparisons =============================-->
+  <h3 class="ui horizontal divider header">
+    <i class="bar chart icon"></i>
+    Compare {{propertiesCtrl.property.prospectName}} to Properties in {{propertiesCtrl.property.groupName}}
+  </h3>
+
   <table class="ui striped table">
     <thead>
       <tr>
-        <th>Data</th>
+        <th class="table-label-column">Data</th>
         <th>{{propertiesCtrl.property.prospectName}}</th>
         <th>
             <div class="ui selection dropdown">
-              <input type="hidden" name="gender">
+              <input type="text" name="prop-compare">
               <i class="dropdown icon"></i>
-              <div class="default text">Gender</div>
+              <div class="default text" ng-model="propertiesCtrl.compareName">{{propertiesCtrl.compareName}}</div>
               <div class="menu">
-                <div class="item" data-value="1">Male</div>
-                <div class="item" data-value="0">Female</div>
+                <div class="item" data-value="0" ng-repeat="property in propertiesCtrl.compareProps" ng-click="propertiesCtrl.compareProperty(property.prospectName)">{{property.prospectName}}</div>
+                <div class="item" data-value="1" ng-click="propertiesCtrl.compareProperty('--Clear--')">--Clear--</div>
               </div>
             </div>
         </th>
@@ -145,59 +152,117 @@
       <tr>
         <td>Z-Estimate</td>
         <td>{{propertiesCtrl.property.zillowData.zillowComps.principal.zestimate.amount.__text | currency}}</td>
-        <td ng-repeat = "comparable in propertiesCtrl.property.zillowData.zillowComps.comparables.comp  | filter:query | orderBy:_score | limitTo:3">
-            {{comparable.zestimate.amount.__text | currency}}
+        <td>
+            {{propertiesCtrl.compareThis.zillowData.zillowSearch.zestimate.amount.__text | currency}}
         </td>
+        <td ng-if="propertiesCtrl.compareThis">
+            {{propertiesCtrl.compareThis.zestimateValue | currency}}
+        </td>
+        <td ng-if="propertiesCtrl.compareThis">
+          {{propertiesCtrl.compareThis.zestimatePercentage | percentage:2}}
+        </td>
+        <td ng-if="!propertiesCtrl.compareThis"></td>
+        <td ng-if="!propertiesCtrl.compareThis"></td>
       </tr>
       <tr>
         <td>Finished Sq.Ft</td>
         <td>{{propertiesCtrl.property.zillowData.zillowComps.principal.finishedSqFt}}</td>
-        <td ng-repeat = "comparable in propertiesCtrl.property.zillowData.zillowComps.comparables.comp  | filter:query | orderBy:_score | limitTo:3">
-              {{comparable.finishedSqFt}}
+        <td>
+            {{propertiesCtrl.compareThis.zillowData.zillowComps.principal.finishedSqFt}}
         </td>
+        <td ng-if="propertiesCtrl.compareThis">
+            {{propertiesCtrl.compareThis.feetValue}}
+        </td>
+        <td ng-if="propertiesCtrl.compareThis">
+          {{propertiesCtrl.compareThis.feetPercentage | percentage:2}}
+        </td>
+        <td ng-if="!propertiesCtrl.compareThis"></td>
+        <td ng-if="!propertiesCtrl.compareThis"></td>
       </tr>
       <tr>
         <td>Price per Sq.Ft</td>
         <td>{{propertiesCtrl.property.zillowData.zillowComps.principal.zestimate.amount.__text / propertiesCtrl.property.zillowData.zillowComps.principal.finishedSqFt | currency}}</td>
-        <td ng-repeat = "comparable in propertiesCtrl.property.zillowData.zillowComps.comparables.comp  | filter:query | orderBy:_score | limitTo:3">
-          {{comparable.zestimate.amount.__text / comparable.finishedSqFt | currency}}
+        <td>
+          {{propertiesCtrl.compareThis.zillowData.zillowComps.principal.zestimate.amount.__text / propertiesCtrl.property.zillowData.zillowComps.principal.finishedSqFt | currency}}
         </td>
+        <td ng-if="propertiesCtrl.compareThis">
+            {{propertiesCtrl.compareThis.footPriceValue | currency}}
+        </td>
+        <td ng-if="propertiesCtrl.compareThis">
+          {{propertiesCtrl.compareThis.footPricePercentage | percentage:2}}
+        </td>
+        <td ng-if="!propertiesCtrl.compareThis"></td>
+        <td ng-if="!propertiesCtrl.compareThis"></td>
       </tr>
       <tr>
         <td>Beds/Baths</td>
         <td>{{propertiesCtrl.property.zillowData.zillowComps.principal.bedrooms}} / {{propertiesCtrl.property.zillowData.zillowComps.principal.bathrooms}}</td>
-        <td ng-repeat = "comparable in propertiesCtrl.property.zillowData.zillowComps.comparables.comp  | filter:query | orderBy:_score | limitTo:3">
-            {{comparable.bedrooms}} /   {{comparable.bathrooms}}
+        <td ng-if="propertiesCtrl.compareThis">
+            {{propertiesCtrl.compareThis.zillowData.zillowComps.principal.bedrooms}} / {{propertiesCtrl.compareThis.zillowData.zillowComps.principal.bathrooms}}
         </td>
+        <td ng-if="propertiesCtrl.compareThis">
+            {{propertiesCtrl.compareThis.bedsValue}} / {{propertiesCtrl.compareThis.bathroomsValue}}
+        </td>
+        <td ng-if="propertiesCtrl.compareThis">
+          <!-- Not used as doesn't make sense for comparison -->
+          <!-- {{propertiesCtrl.compareThis.bedsPercentage | percentage:2}} / {{propertiesCtrl.compareThis.bathroomsPercentage | percentage:2}} -->
+        </td>
+        <td ng-if="!propertiesCtrl.compareThis"></td>
+        <td ng-if="!propertiesCtrl.compareThis"></td>
+        <td ng-if="!propertiesCtrl.compareThis"></td>
       </tr>
       <tr>
         <td>Price per Bedroom</td>
         <td>{{propertiesCtrl.property.zillowData.zillowComps.principal.zestimate.amount.__text / propertiesCtrl.property.zillowData.zillowComps.principal.bedrooms | currency}}</td>
-        <td ng-repeat = "comparable in propertiesCtrl.property.zillowData.zillowComps.comparables.comp  | filter:query | orderBy:_score | limitTo:3">
-            {{comparable.zestimate.amount.__text / comparable.bedrooms | currency}}
+        <td>{{propertiesCtrl.compareThis.zillowData.zillowComps.principal.zestimate.amount.__text / propertiesCtrl.property.zillowData.zillowComps.principal.bedrooms | currency}}</td>
+        <td ng-if="propertiesCtrl.compareThis">
+            {{propertiesCtrl.compareThis.bedroomPriceValue | currency}}
         </td>
+        <td ng-if="propertiesCtrl.compareThis">
+          {{propertiesCtrl.compareThis.bedroomPricePercentage | percentage:2}}
+        </td>
+        <td ng-if="!propertiesCtrl.compareThis"></td>
+        <td ng-if="!propertiesCtrl.compareThis"></td>
       </tr>
       <tr>
         <td>Last Sold Date</td>
         <td>{{propertiesCtrl.property.zillowData.zillowComps.principal.lastSoldDate}}</td>
-        <td ng-repeat = "comparable in propertiesCtrl.property.zillowData.zillowComps.comparables.comp  | filter:query | orderBy:_score | limitTo:3">
-            {{comparable.lastSoldDate}}
+        <td>{{propertiesCtrl.compareThis.zillowData.zillowComps.principal.lastSoldDate}}</td>
+        <td ng-if="propertiesCtrl.compareThis">
+            <!-- Not used as doesn't make sense for comparison -->
+            <!-- {{propertiesCtrl.compareThis.lastSoldDate}} -->
         </td>
+        <td ng-if="propertiesCtrl.compareThis">
+
+        </td>
+        <td ng-if="!propertiesCtrl.compareThis"></td>
+        <td ng-if="!propertiesCtrl.compareThis"></td>
       </tr>
       <tr>
         <td>Last Sold Price</td>
         <td>{{propertiesCtrl.property.zillowData.zillowComps.principal.lastSoldPrice.__text | currency}}</td>
-        <td ng-repeat = "comparable in propertiesCtrl.property.zillowData.zillowComps.comparables.comp  | filter:query | orderBy:_score | limitTo:3">
-            {{comparable.lastSoldPrice.__text | currency}}
+        <td>{{propertiesCtrl.compareThis.zillowData.zillowComps.principal.lastSoldPrice.__text | currency}}</td>
+        <td ng-if="propertiesCtrl.compareThis.lastSoldValue">
+            {{propertiesCtrl.compareThis.lastSoldValue | currency}}
         </td>
+        <td ng-if="propertiesCtrl.compareThis.lastSoldValue">
+          {{propertiesCtrl.compareThis.lastSoldPercentage | percentage:2}}
+        </td>
+        <td ng-if="!propertiesCtrl.compareThis.lastSoldValue"></td>
+        <td ng-if="!propertiesCtrl.compareThis.lastSoldValue"></td>
       </tr>
     </tbody>
   </table>
-  <!-- Table for comparable comparisons -->
+
+  <!-- Table for comparable comparisons ====================================-->
+  <h3 class="ui horizontal divider header">
+    <i class="bar chart icon"></i>
+    Compare {{propertiesCtrl.property.prospectName}} to Comparables from Zillow
+  </h3>
     <table class="ui striped table">
       <thead>
         <tr>
-          <th>Data</th>
+          <th class="table-label-column">Data</th>
           <th>{{propertiesCtrl.property.prospectName}}</th>
           <th ng-repeat = "comparable in propertiesCtrl.property.zillowData.zillowComps.comparables.comp  | filter:query | orderBy:_score | limitTo:3">Comparable</th>
         </tr>
@@ -255,3 +320,11 @@
       </tbody>
     </table>
 </div>
+
+<script type="text/javascript">
+
+  $('.ui.dropdown').dropdown();
+
+  var googleMapsApi = "AIzaSyADP6gOPAgBYEfEl8cl_a56-XcsHo-nnA4"
+
+</script>

@@ -78,25 +78,6 @@
             console.log(self.propObject)
 
           })
-
-
-
-          //   //If property found get updated details including pictures
-          //   self.searchFactory.getUpdatedDetails(self.zpid).success(function(details){
-          //     var x2js = new X2JS();
-          //     var zillowDetails =  x2js.xml_str2json(details)
-          //     console.log(zillowDetails)
-          //     self.propObject.zillowDetails = zillowDetails.details.response
-          //     console.log("checking updated details from search controller: " + self.propObject.zillowDetails)
-          //   })
-          //   // If property found, get chart in api call to zillow
-          //   self.searchFactory.getChart(self.zpid).success(function(chart){
-          //
-          //   })
-          //
-          // })
-          // address = null
-          // cityStateZip = null
         }
 
         self.saveProp = function(){
@@ -137,15 +118,18 @@
         self.groupCheck = []
         self.groupArrays = []
         self.property = null
+        self.compareProps = []
+        self.compareName = "Choose Comparable"
+        self.compareThis = null
+
 
         self.api.listProspects().success(function(response){
-            self.savedProspects = response
 
+            self.savedProspects = response
             // push unique group names into array to use for reference
             for(var g=0; g<self.savedProspects.length; g++){
               if(self.groupCheck.indexOf(self.savedProspects[g].groupName)=== -1){
                 self.groupCheck.push(self.savedProspects[g].groupName)
-                self.groupArrays.push(self.savedProspects[g].groupName)
               }
             }
             // for each unique group name, create array of objects containing that group name
@@ -167,14 +151,101 @@
         self.showProperty = function(propId){
           self.api.showProspect(propId).success(function(response){
             self.property = response
+            self.compareProps = []
             console.log(response)
+            for (var i = 0; i < self.groupArrays.length; i++) {
+              for (var j = 0; j < self.groupArrays[i].length; j++) {
+                if(self.property.groupName === self.groupArrays[i][j].groupName && self.property.prospectName !== self.groupArrays[i][j].prospectName){
+                  self.compareProps.push(self.groupArrays[i][j])
+                }
+              }
+            }
+            // console.log(self.compareProps)
+            // console.log(self.compareName)
           })
         }
+
+
+
+        //If a property is chosen to compare, set compare object
+        self.compareProperty = function(compareName){
+          self.compareName = compareName
+          if(compareName !== "Choose Comparable" && compareName !== "--Clear--"){
+            console.log("comparing running")
+            console.log(compareName)
+            for (var i = 0; i < self.compareProps.length; i++) {
+              if(self.compareProps[i].prospectName === self.compareName){
+                //set self.compareThis object to the property matching the input in the dropdown on property details page
+                //Then compare this object to the selected property for each data point below
+                self.compareThis = self.compareProps[i]
+
+                //compare zestimate values
+                self.compareThis.zestimateValue = self.property.zillowData.zillowComps.principal.zestimate.amount.__text - self.compareThis.zillowData.zillowComps.principal.zestimate.amount.__text
+                self.compareThis.zestimatePercentage = self.compareThis.zestimateValue /self.property.zillowData.zillowComps.principal.zestimate.amount.__text
+
+                //compare square footage
+                self.compareThis.feetValue = self.property.zillowData.zillowComps.principal.finishedSqFt - self.compareThis.zillowData.zillowComps.principal.finishedSqFt
+                self.compareThis.feetPercentage = self.compareThis.feetValue / self.property.zillowData.zillowComps.principal.finishedSqFt
+
+                //compare square footage price
+                self.compareThis.footPriceValue = (self.property.zillowData.zillowComps.principal.zestimate.amount.__text / self.property.zillowData.zillowComps.principal.finishedSqFt) - (self.compareThis.zillowData.zillowComps.principal.zestimate.amount.__text / self.property.zillowData.zillowComps.principal.finishedSqFt)
+                self.compareThis.footPricePercentage = self.compareThis.footPriceValue / (self.property.zillowData.zillowComps.principal.zestimate.amount.__text / self.property.zillowData.zillowComps.principal.finishedSqFt)
+
+                //compare number of bedrooms - not using percentage as doesn't make sense for bedrooms
+                self.compareThis.bedsValue = self.property.zillowData.zillowComps.principal.bedrooms - self.compareThis.zillowData.zillowComps.principal.bedrooms
+                // self.compareThis.bedsPercentage = self.compareThis.bedsValue / self.property.zillowData.zillowComps.principal.bedrooms
+
+                //compare number of bathrooms
+                self.compareThis.bathroomsValue = self.property.zillowData.zillowComps.principal.bathrooms - self.compareThis.zillowData.zillowComps.principal.bathrooms
+                // self.compareThis.bathroomsPercentage = (self.property.zillowData.zillowComps.principal.bathrooms - self.compareThis.zillowData.zillowComps.principal.bathrooms)/self.property.zillowData.zillowComps.principal.bathrooms
+
+                //compare price per bedroom
+                self.compareThis.bedroomPriceValue = (self.property.zillowData.zillowComps.principal.zestimate.amount.__text / self.property.zillowData.zillowComps.principal.bedrooms) - (self.compareThis.zillowData.zillowComps.principal.zestimate.amount.__text / self.property.zillowData.zillowComps.principal.bedrooms)
+                self.compareThis.bedroomPricePercentage = self.compareThis.bedroomPriceValue / (self.property.zillowData.zillowComps.principal.zestimate.amount.__text / self.property.zillowData.zillowComps.principal.bedrooms)
+
+                //dates comparison not used as doesn't make sense
+                // self.compareThis.lastSoldDate = self.property.zillowData.zillowComps.principal.lastSoldDate - self.compareThis.zillowData.zillowComps.principal.lastSoldDate
+
+                //compare last sold Price
+                self.compareThis.lastSoldValue = self.property.zillowData.zillowComps.principal.lastSoldPrice.__text - self.compareThis.zillowData.zillowComps.principal.lastSoldPrice.__text
+                self.compareThis.lastSoldPercentage = self.compareThis.lastSoldValue /self.property.zillowData.zillowComps.principal.lastSoldPrice.__text
+              }
+            }
+          } else {
+            self.compareThis = null
+          }
+        }
+
 
         self.deleteProperty = function(propId){
           self.api.removeProspect(propId).success(function(response){
             console.log(response)
             self.property = null
+            self.compareProps = null
+            //Run listProspects() to update list of available properties
+            self.api.listProspects().success(function(response){
+                self.savedProspects = response
+
+                // push unique group names into array to use for reference
+                for(var g=0; g<self.savedProspects.length; g++){
+                  if(self.groupCheck.indexOf(self.savedProspects[g].groupName)=== -1){
+                    self.groupCheck.push(self.savedProspects[g].groupName)
+                    self.groupArrays.push(self.savedProspects[g].groupName)
+                  }
+                }
+                // for each unique group name, create array of objects containing that group name
+                for(i=0; i<self.groupCheck.length; i++){
+                  self.groupArrays[i] = []
+                  for(j=0; j<self.savedProspects.length; j++){
+                    if(self.savedProspects[j].groupName === self.groupCheck[i]){
+                      self.groupArrays[i].push(self.savedProspects[j])
+                    }
+                  }
+                  // console.log(self.groupCheck)
+                  console.log(self.groupArrays)
+                }
+
+            })
           })
         }
 
@@ -187,6 +258,31 @@
               self.property = response
               self.editing = false
               console.log(response)
+            })
+
+            //Run listProspects() to update list of available properties
+            self.api.listProspects().success(function(response){
+                self.savedProspects = response
+
+                // push unique group names into array to use for reference
+                for(var g=0; g<self.savedProspects.length; g++){
+                  if(self.groupCheck.indexOf(self.savedProspects[g].groupName)=== -1){
+                    self.groupCheck.push(self.savedProspects[g].groupName)
+                    self.groupArrays.push(self.savedProspects[g].groupName)
+                  }
+                }
+                // for each unique group name, create array of objects containing that group name
+                for(i=0; i<self.groupCheck.length; i++){
+                  self.groupArrays[i] = []
+                  for(j=0; j<self.savedProspects.length; j++){
+                    if(self.savedProspects[j].groupName === self.groupCheck[i]){
+                      self.groupArrays[i].push(self.savedProspects[j])
+                    }
+                  }
+                  // console.log(self.groupCheck)
+                  console.log(self.groupArrays)
+                }
+
             })
           })
         }

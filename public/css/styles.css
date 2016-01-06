@@ -3,14 +3,12 @@
 *{
   /*border: 2px dashed blue;*/
 }
+
+/*Main Styling____________________________________________________________*/
 #verisiHeader{
-  font-family: 'Playfair Display SC', serif;
+  font-family: 'Arimo', sans-serif;
 }
 
-#jumboHeader{
-  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
-  color: whitesmoke;
-}
 
 #navText{
   margin: 0 auto;
@@ -24,11 +22,17 @@
   height: 200px
 }
 
+#jumboHeader{
+  font-family: 'Arimo', sans-serif;
+  color: whitesmoke;
+  margin-top: 50px;
+}
+
 #loggedInJumbo{
   margin-top: -20px;
   display: block;
   text-align: justify;
-  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  font-family: 'Arimo', sans-serif;
   color: whitesmoke;
   background-image: url("../images/darkwood.jpg");
   background-size: 100% 100%;
@@ -39,7 +43,7 @@
   margin-top: -20px;
   display: block;
   /*text-align: justify;*/
-  font-family: 'Playfair Display SC', serif;
+  font-family: 'Arimo', sans-serif;
   background-image: url("../images/darkwood.jpg");
   background-size: 100% 100%;
   /*background-size: cover;*/
@@ -69,6 +73,28 @@ nav.ui.menu{
   color: white;
 }
 
+
+#footer {
+margin: 0 auto;
+margin-top: 40px;
+position: relative;
+bottom: -40px;
+left: 0;
+width: 100%;
+color: white;
+background-color: black;
+}
+/*#footer .social {
+padding: 30px 0;
+width: 425px;
+text-align: center;
+}*/
+#footer .copyright {
+padding: 30px 0;
+text-align: center;
+margin: 0 auto;
+}
+
 /*Search Page Styling*/
 .ui.card.search-card{
   margin-left: 30px;
@@ -86,10 +112,7 @@ nav.ui.menu{
 
 /*Property Details Styling=====================================*/
 
-#show-group{
-  /*color: black;*/
-  /*float: right;*/
-}
+
 
 /*#show-comparables{
   color: black;
@@ -119,11 +142,22 @@ nav.ui.menu{
 .ui.button{
   background-color: #190E08;
   color: white;
+  margin: 2px;
 }
 
 button.tiny.ui.button{
   background-color: #190E08;
   color: white;
+}
+
+button#show-group.ui.tiny.basic.button{
+  border: 2px solid black;
+  color: #F0824F
+}
+
+.ui.basic.button, .ui.basic.buttons .button{
+  border: 2px solid black;
+  color: #F0824F
 }
 
 #links{
@@ -171,4 +205,9 @@ button.ui.fluid.button {
 
 .description{
   margin-top: 10px
+}
+
+/*Table Styling for property details page*/
+.table-label-column{
+  width: 175px;
 }

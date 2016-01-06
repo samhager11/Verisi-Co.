@@ -88,8 +88,7 @@ console.log(req.body)
 }
 
 function chart(req, res){
-  console.log("hitting details api endpoint")
-
+  
   var apiKey = "X1-ZWz1f1owqx0utn_70ucn"
   var zillowChart = "http://www.zillow.com/webservice/GetChart.htm?zws-id=" + apiKey
 
@@ -113,7 +112,9 @@ function chart(req, res){
   })
 }
 
+function walkScore(req, res){
 
+}
 
 //method to save a prospect (have to run search to display item first)
 function create(req, res){
