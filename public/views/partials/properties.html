@@ -76,7 +76,14 @@
             </div>
             <div class="ten wide column">
               Google Map goes here
-            </div>
+              <map id="map-properties">
+                <!-- <marker ng-if="propertiesCtrl.drawMap" position="{{propertiesCtrl.property.zillowData.zillowSearch.address.latitude}}, {{propertiesCtrl.property.zillowData.zillowSearch.address.longitude}}">
+                </marker>
+                <marker ng-if="propertiesCtrl.drawMap" ng-repeat="property in propertiesCtrl.compareProps"
+                        position="{{property.zillowData.zillowSearch.address.latitude}}, {{property.zillowData.zillowSearch.address.longitude}}">
+                </marker> -->
+              </map>
+          </div>
         </div>
     </div>
     <!--  This is the divider segment containing quick facts about the property-->
@@ -325,6 +332,5 @@
 
   $('.ui.dropdown').dropdown();
 
-  var googleMapsApi = "AIzaSyADP6gOPAgBYEfEl8cl_a56-XcsHo-nnA4"
 
 </script>

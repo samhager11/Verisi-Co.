@@ -1,5 +1,5 @@
 (function(){
-  angular.module('verisiApp',['app.routes','mainCtrl','otherCtrls','otherServices','authService'])
+  angular.module('verisiApp',['app.routes','mainCtrl','otherCtrls','otherServices','authService','ngMap'])
   //removed ngTouch from injections - not yet loaded
 
   //application configuration to integrate token into requests

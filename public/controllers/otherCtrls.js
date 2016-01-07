@@ -1,5 +1,5 @@
 (function(){
-  angular.module('otherCtrls', ['otherServices','authService'])
+  angular.module('otherCtrls', ['otherServices','authService','ngMap'])
       .controller('homeController', homeController)
       .controller('searchController', searchController)
       .controller('propertiesController', propertiesController)
@@ -111,7 +111,7 @@
       }
 
       //Controller for properties once saved
-      function propertiesController(prospects,$routeParams){
+      function propertiesController(prospects,$routeParams,NgMap){
         var self = this
         self.savedProspects = []
         self.api = prospects
@@ -150,6 +150,7 @@
 
         self.showProperty = function(propId){
           self.api.showProspect(propId).success(function(response){
+
             self.property = response
             self.compareProps = []
             console.log(response)
@@ -160,8 +161,40 @@
                 }
               }
             }
-            // console.log(self.compareProps)
-            // console.log(self.compareName)
+
+
+
+            self.mapOptions = {
+              // center: new google.maps.LatLng(Number(self.property.zillowData.zillowSearch.address.latitude), Number(self.property.zillowData.zillowSearch.address.longitude)),
+              zoom: 9,
+              // mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            self.map = new google.maps.Map(document.getElementById("map-properties"),self.mapOptions);
+            self.markerCoords = {lat: Number(self.property.zillowData.zillowSearch.address.latitude), lng: Number(self.property.zillowData.zillowSearch.address.longitude) }
+
+            google.maps.event.addListenerOnce(self.map, 'idle', function() {
+               google.maps.event.trigger(self.map, 'resize')
+
+               self.map.setCenter(new google.maps.LatLng(Number(self.property.zillowData.zillowSearch.address.latitude), Number(self.property.zillowData.zillowSearch.address.longitude)));
+               self.marker = new google.maps.Marker({
+                 position: self.markerCoords,
+                 map: self.map,
+                 title: 'Hello World!'
+               });
+
+               for (var i = 0; i < self.compareProps.length; ++i) {
+                 var compareCoords = {lat: Number(self.compareProps[i].zillowData.zillowSearch.address.latitude), lng: Number(self.compareProps[i].zillowData.zillowSearch.address.longitude)}
+                  self.compMarker = new google.maps.Marker({
+                    position: compareCoords,
+                    map: self.map
+                  });
+                }
+
+               console.log("google maps resize")
+             });
+
+
           })
         }
 

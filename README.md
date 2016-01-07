@@ -15,7 +15,7 @@ This application is built to fill the need for collaboration amongst individuals
 
 The first implementation of this application was created to facilitate collaboration in the beginning stages of screening property acquisition targets.
 
-A user who is logged in is able to add addresses of properties they have viewed on other websites. The application then makes API calls to Zillow for properties that the user decides to save to their profile. Collaboration is facilitated by the additon of groups that a user either creates or joins. A specific group name is attached to each saved property and allows the property to be viewed by members of the group. Think Google docs but with context that allows decisions to be made and actions to be taken quickly and efficiently.
+A user who is logged in is able to add addresses of properties they have viewed on other websites. The application then makes API calls to Zillow for properties that the user decides to save to their profile. Collaboration is facilitated by the addition of groups that a user either creates or joins. A specific group name is attached to each saved property and allows the property to be viewed by members of the group. Think Google docs but with context that allows decisions to be made and actions to be taken quickly and efficiently.
 
 
 ##**Technologies**
