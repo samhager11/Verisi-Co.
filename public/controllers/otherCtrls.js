@@ -162,8 +162,6 @@
               }
             }
 
-
-
             self.mapOptions = {
               // center: new google.maps.LatLng(Number(self.property.zillowData.zillowSearch.address.latitude), Number(self.property.zillowData.zillowSearch.address.longitude)),
               zoom: 9,
@@ -177,19 +175,48 @@
                google.maps.event.trigger(self.map, 'resize')
 
                self.map.setCenter(new google.maps.LatLng(Number(self.property.zillowData.zillowSearch.address.latitude), Number(self.property.zillowData.zillowSearch.address.longitude)));
+
+               var mainMarker= {
+                      url: '../images/map-marker-red-fat.png',
+                      size: new google.maps.Size(71, 71),
+                      origin: new google.maps.Point(0,0),
+                      anchor: new google.maps.Point(0, 34),
+                      scaledSize: new google.maps.Size(35,42)
+                    }
+              var groupPropMarker = {
+                     url: '../images/map-marker-black.png',
+                     size: new google.maps.Size(71, 71),
+                     origin: new google.maps.Point(0,0),
+                     anchor: new google.maps.Point(0, 34),
+                     scaledSize: new google.maps.Size(32,30)
+                   }
+
+              var compMarker = {
+                     url: '../images/map-marker-comp.png',
+                     size: new google.maps.Size(71, 71),
+                     origin: new google.maps.Point(0,0),
+                     anchor: new google.maps.Point(0, 34),
+                     scaledSize: new google.maps.Size(25,20)
+                   }
+
                self.marker = new google.maps.Marker({
                  position: self.markerCoords,
                  map: self.map,
-                 title: 'Hello World!'
+                 title: self.property.prospectName,
+                 icon: mainMarker
                });
 
                for (var i = 0; i < self.compareProps.length; ++i) {
                  var compareCoords = {lat: Number(self.compareProps[i].zillowData.zillowSearch.address.latitude), lng: Number(self.compareProps[i].zillowData.zillowSearch.address.longitude)}
                   self.compMarker = new google.maps.Marker({
                     position: compareCoords,
-                    map: self.map
+                    map: self.map,
+                    title: self.compareProps[i].prospectName,
+                    icon: groupPropMarker
                   });
                 }
+
+                
 
                console.log("google maps resize")
              });

@@ -111,8 +111,14 @@ margin: 0 auto;
 
 /*Property Details Styling=====================================*/
 
-#map-properties {
+#map-holder{
+  padding-top: 42px;
+}
+
+map#map-properties {
      height: 100%;
+     /*border: 5px solid black;*/
+     border-radius: 7px;
    }
 
 

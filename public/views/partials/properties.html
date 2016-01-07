@@ -74,8 +74,10 @@
                       <button class="tiny ui button"><a id="links" href="{{propertiesCtrl.property.zillowData.zillowSearch.links.homedetails}}">Details</a></button>
                       <button class="tiny ui button"><a id="links" href="{{propertiesCtrl.property.zillowData.zillowSearch.links.mapthishome}">Map</a></button>
             </div>
-            <div class="ten wide column">
-              Google Map goes here
+            <div class="one wide column">
+
+            </div>
+            <div class="eight wide column" id="map-holder">
               <map id="map-properties">
                 <!-- <marker ng-if="propertiesCtrl.drawMap" position="{{propertiesCtrl.property.zillowData.zillowSearch.address.latitude}}, {{propertiesCtrl.property.zillowData.zillowSearch.address.longitude}}">
                 </marker>
@@ -83,6 +85,10 @@
                         position="{{property.zillowData.zillowSearch.address.latitude}}, {{property.zillowData.zillowSearch.address.longitude}}">
                 </marker> -->
               </map>
+              <img src="../images/googlelogo.jpg" alt="Google Maps" style="height:30px; width:60px; float:right" />
+          </div>
+          <div class="one wide column">
+
           </div>
         </div>
     </div>
