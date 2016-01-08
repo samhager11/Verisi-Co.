@@ -4,6 +4,9 @@
   /*border: 2px dashed blue;*/
 }
 
+body{
+  padding-left: 25px;
+}
 /*Main Styling____________________________________________________________*/
 #verisiHeader{
   font-family: 'Arimo', sans-serif;

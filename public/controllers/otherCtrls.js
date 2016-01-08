@@ -150,7 +150,7 @@
 
         self.showProperty = function(propId){
           self.api.showProspect(propId).success(function(response){
-
+            console.log(self.compareThis)
             self.property = response
             self.compareProps = []
             console.log(response)
@@ -216,7 +216,7 @@
                   });
                 }
 
-                
+
 
                console.log("google maps resize")
              });
