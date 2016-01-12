@@ -55,9 +55,9 @@
           <div class="ui segment" id="property-header">
               <!-- buttons to reveal edit property box  -->
               <h3 id="property-group">{{propertiesCtrl.property.groupName}}</h3>
-              <button  ng-click="propertiesCtrl.editing = true" class="ui button" id="back-to-properties">Edit this Property</button>
-              <button class="ui button" id="back-to-properties" ng-click="propertiesCtrl.deleteProperty(propertiesCtrl.property._id); propertiesCtrl.compareThis=null">Delete this Property</button>
-              <button  ng-click="propertiesCtrl.property=null; propertiesCtrl.compareProps=[]; propertiesCtrl.compareName='Choose Comparable'; propertiesCtrl.compareThis=null" class="ui button" id="back-to-properties">Back to Properties</button>
+              <button  ng-click="propertiesCtrl.editing = true" class="ui button" id="property-detail-buttons">Edit this Property</button>
+              <button class="ui button" id="property-detail-buttons" ng-click="propertiesCtrl.deleteProperty(propertiesCtrl.property._id); propertiesCtrl.compareThis=null">Delete this Property</button>
+              <button  ng-click="propertiesCtrl.property=null; propertiesCtrl.compareProps=[]; propertiesCtrl.compareName='Choose Comparable'; propertiesCtrl.compareThis=null" class="ui button" id="property-detail-buttons">Back to Properties</button>
           </div>
 
           <!-- Header Section containing Graph and Map side by side -->

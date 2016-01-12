@@ -41,10 +41,10 @@
           controller: 'groupController',
           controllerAs: 'groupCtrl'
         })
-        .when('/resources', {
-          templateUrl: 'views/partials/resources.html',
-          controller: 'resourcesController',
-          controllerAs: 'resourcesCtrl'
+        .when('/communicate', {
+          templateUrl: 'views/partials/communication.html',
+          controller: 'communicationController',
+          controllerAs: 'communicationCtrl'
         })
         .when('/users/:userId', {
           templateUrl: 'views/partials/edit-profile.html',

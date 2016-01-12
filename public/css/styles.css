@@ -4,6 +4,7 @@
   /*border: 2px dashed blue;*/
 }
 
+/*Main Divs' Styling============================================================*/
 body{
   margin:0;
   padding:0;
@@ -39,7 +40,9 @@ text-align: center;
 margin: 0 auto;
 }
 
-/*Main Styling____________________________________________________________*/
+/*===========================================================================*/
+
+/*Header and Jumbo Styling===================================================*/
 #verisiHeader{
   font-family: 'Arimo', sans-serif;
 }
@@ -85,8 +88,6 @@ margin: 0 auto;
   height: 250px;
 }
 
-
-
 #icons{
   color: black;
   margin: 0 auto;
@@ -108,9 +109,9 @@ nav.ui.menu{
   color: white;
 }
 
+/*=========================================================================*/
 
-
-/*Search Page Styling*/
+/*Search Page Styling======================================================*/
 .ui.card.search-card{
   margin-left: 30px;
   margin-top: 60px;
@@ -125,7 +126,9 @@ nav.ui.menu{
   margin-top: 10px;
 }
 
-/*Property Details Styling=====================================*/
+/*========================================================================*/
+
+/*Property Details Styling================================================*/
 
 #map-holder{
   padding-top: 42px;
@@ -150,14 +153,10 @@ map#map-properties {
   float: left;
 }
 
-#back-to-properties{
+#property-detail-buttons{
   float: right;
 }
 
-
-#detail-buttons{
-
-}
 
 .ui.menu .item {
   color: white;

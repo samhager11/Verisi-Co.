@@ -348,9 +348,9 @@
         }
     }
 
-      function resourcesController(){
+      function communicationController(){
         var self = this
-        self.message = 'Checking the resources controller'
+        self.message = 'Checking the communication controller'
       }
 
       function userController(){
