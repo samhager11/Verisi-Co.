@@ -3,7 +3,7 @@
 
         <div class="two column row">
           <div  class="column">
-            <div class="ui segments">
+
               <div class="ui center aligned raised segment properties" ng-repeat="array in propertiesCtrl.groupArrays">
                 <h2 class="ui icon header">
                   <i class="home icon"></i>
@@ -14,7 +14,7 @@
                 </h2>
                 <div class="ui horizontal divider"></div>
 
-                  <div class="ui left aligned raised segment" ng-repeat="property in array">
+                  <div class="ui left aligned segment" ng-repeat="property in array">
                     <div class="content">
                       <p>
                         {{property.prospectName}} &nbsp; | &nbsp; {{property.zillowData.zillowSearch.address.street}} &nbsp; - &nbsp;{{property.zillowData.zillowSearch.address.city}} &nbsp; |
@@ -24,7 +24,7 @@
                     </div>
                   </div>
             </div>
-          </div>
+
         </div>
       </div>
 
@@ -92,7 +92,7 @@
           </div>
         </div>
     </div>
-    <!--  This is the divider segment containing quick facts about the property-->
+    <!--  This is the divider segment containing quick stats and facts about the property-->
     <div class="ui segment">
       <div class="ui four column grid">
           <div class="column center aligned bottomStat">

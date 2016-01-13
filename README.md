@@ -36,8 +36,9 @@ Additional npm packages were installed to aid the construction of the applicatio
 
 ![Verisi Wireframe](./Readme-images/Schema_WireFrame.jpg)
 ![Verisi UX](./Readme-images/UX_Design.jpg)
-![Verisi Home](./Readme-images/Home_Page.png)
-![Verisi Properties](./Readme-images/Properties_Page.png)
+![Verisi Home](./Readme-images/Verisi_home.png)
+![Verisi Properties](./Readme-images/Verisi_map.png)
+![Verisi Properties](./Readme-images/Verisi_tables.png)
 
 ##**User Stories**
 
